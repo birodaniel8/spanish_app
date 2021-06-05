@@ -5,29 +5,25 @@ import MoodSelector from "../components/MoodSelector";
 import MoodAndTenseTypes from "../configurations/MoodAndTenseTypes";
 import { styles } from "../Styles";
 import { AntDesign, FontAwesome5, Ionicons } from "@expo/vector-icons";
+import { setSettings } from "../actions/user";
+import { connect } from "react-redux";
+import { db } from "../firebase";
 
-const SettingsScreen = ({ navigation }) => {
-  // mood and tense list to settings:
-  const moodSettings = Object.keys(MoodAndTenseTypes).reduce((settings, mood) => {
-    // set every tense setting in a mood to 'true':
-    const tenseSettings = MoodAndTenseTypes[mood].reduce((o, key) => ({ ...o, [key]: true }), {});
-    settings[mood] = tenseSettings;
-    return settings;
-  }, {});
-
-  const [elEllaUsted, setElEllaUsted] = useState(false);
-  const [onlyEnglish, setOnlyEnglish] = useState(true);
-  const [settings, setSettings] = useState({ ...moodSettings, elEllaUsted, onlyEnglish });
+const SettingsScreen = ({ navigation, user, settings, setSettings }) => {
+  const [newSettings, setNewSettings] = useState(settings);
 
   // update the other settings:
   const elEllaUstedChecker = () => {
-    setSettings({ ...settings, elEllaUsted: !elEllaUsted });
-    setElEllaUsted(!elEllaUsted);
+    setNewSettings({ ...newSettings, elEllaUsted: !newSettings.elEllaUsted });
+  };
+  const onlyEnglishChecker = () => {
+    setNewSettings({ ...newSettings, onlyEnglish: !newSettings.onlyEnglish });
   };
 
-  const onlyEnglishChecker = () => {
-    setSettings({ ...settings, onlyEnglish: !onlyEnglish });
-    setOnlyEnglish(!onlyEnglish);
+  const saveSettings = () => {
+    db.collection("users").doc(user.uid).set({ settings: newSettings });
+    setSettings(newSettings);
+    console.log("settings saved");
   };
 
   return (
@@ -37,7 +33,7 @@ const SettingsScreen = ({ navigation }) => {
           <Ionicons name="chevron-back" size={24} color="black" />
         </TouchableOpacity>
         <Text h3>Settings</Text>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={saveSettings}>
           <FontAwesome5 name="save" size={30} color="black" />
         </TouchableOpacity>
       </View>
@@ -49,8 +45,8 @@ const SettingsScreen = ({ navigation }) => {
             key={mood}
             mood={mood}
             tenses={MoodAndTenseTypes[mood]}
-            settings={settings}
-            setSettings={setSettings}
+            settings={newSettings}
+            setSettings={setNewSettings}
           />
         ))}
         <Text style={styles.settingsCategory}>Other</Text>
@@ -58,13 +54,13 @@ const SettingsScreen = ({ navigation }) => {
           <CheckBox
             containerStyle={styles.moodCheckBox}
             title={"él/ella/Usted in any case"}
-            checked={elEllaUsted}
+            checked={newSettings.elEllaUsted}
             onPress={elEllaUstedChecker}
           />
           <CheckBox
             containerStyle={styles.moodCheckBox}
             title={"Only with English translation"}
-            checked={onlyEnglish}
+            checked={newSettings.onlyEnglish}
             onPress={onlyEnglishChecker}
           />
         </View>
@@ -73,4 +69,9 @@ const SettingsScreen = ({ navigation }) => {
   );
 };
 
-export default SettingsScreen;
+const mapStateToProps = (state) => ({
+  user: state.user.user,
+  settings: state.user.settings,
+});
+
+export default connect(mapStateToProps, { setSettings })(SettingsScreen);

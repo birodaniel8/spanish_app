@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { View, ImageBackground } from "react-native";
 import { Text, Button, Input } from "react-native-elements";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import { styles } from "../Styles";
 
 import backgroundImage from "../assets/wp1.jpg";
+import { connect } from "react-redux";
+import { setUser, setSettings } from "../actions/user";
 // const backgroundImage = require(`../assets/wp1.jpg`);
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = ({ navigation, setUser, setSettings }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -15,6 +17,12 @@ const LoginScreen = ({ navigation }) => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
+        setUser(authUser);
+        // load the settings:
+        db.collection("users")
+          .doc(authUser.uid)
+          .get()
+          .then((doc) => setSettings(doc.data().settings));
         navigation.replace("Home");
       }
     });
@@ -28,7 +36,7 @@ const LoginScreen = ({ navigation }) => {
   };
 
   return (
-    <ImageBackground source={backgroundImage} style={{ flex: 1, resizeMode: "cover", justifyContent: "center"}}>
+    <ImageBackground source={backgroundImage} style={{ flex: 1, resizeMode: "cover", justifyContent: "center" }}>
       <View style={styles.container}>
         <Text h3 style={{ marginBottom: 50 }}>
           Login
@@ -57,4 +65,4 @@ const LoginScreen = ({ navigation }) => {
   );
 };
 
-export default LoginScreen;
+export default connect(null, { setUser, setSettings })(LoginScreen);

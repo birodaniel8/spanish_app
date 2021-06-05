@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { View } from "react-native";
 import { Avatar, Button, Input, Text } from "react-native-elements";
 import { styles } from "../Styles";
-import { auth, storage } from "../firebase";
+import { auth, db, storage } from "../firebase";
 import * as ImagePicker from "expo-image-picker";
 import MoodAndTenseTypes from "../configurations/MoodAndTenseTypes";
+import { connect } from "react-redux";
+import { setUser, setSettings } from "../actions/user";
+import DefaultPhotoUrl from "../configurations/DefaultPhotoURL";
 
-const RegisterScreen = ({ navigation }) => {
+const RegisterScreen = ({ navigation, setUser, setSettings }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,7 +17,7 @@ const RegisterScreen = ({ navigation }) => {
   const [image, setImage] = useState(null);
 
   // mood and tense default settings:
-  const defaultSettings = Object.keys(MoodAndTenseTypes).reduce((settings, mood) => {
+  const defaultMoodSettings = Object.keys(MoodAndTenseTypes).reduce((settings, mood) => {
     // set every tense setting in a mood to 'true':
     const tenseSettings = MoodAndTenseTypes[mood].reduce((o, key) => ({ ...o, [key]: true }), {});
     settings[mood] = tenseSettings;
@@ -27,17 +30,30 @@ const RegisterScreen = ({ navigation }) => {
       setPassword2("");
       alert("The passwords do not match.");
     } else {
-      // Create a new used based on email and password and then add the selected name:
+      // Create a new used based on email and password and then add the selected name and photo:
       auth
         .createUserWithEmailAndPassword(email, password)
         .then(async (authUser) => {
           await authUser.user.updateProfile({
             displayName: name,
-            photoURL:
-              "https://firebasestorage.googleapis.com/v0/b/spanish-app-57e1a.appspot.com/o/default_profile_picture.jpg?alt=media&token=17afbe61-3b43-40bd-828c-a135a664768d",
+            photoURL: DefaultPhotoUrl,
           });
           // upload an image too:
           await uploadImage(authUser);
+          // add the base settings to the database:
+          await db
+            .collection("users")
+            .doc(authUser.user.uid)
+            .set({
+              settings: {
+                ...defaultMoodSettings,
+                elEllaUsted: false,
+                onlyEnglish: true,
+              },
+            });
+          // add to states:
+          setUser(authUser.user);
+          setSettings(defaultMoodSettings);
           // refresh the home page:
           navigation.replace("Home");
         })
@@ -45,8 +61,8 @@ const RegisterScreen = ({ navigation }) => {
     }
   };
 
+  // Upload the photo:
   const uploadImage = async (authUser) => {
-    // upload the photo:
     if (image) {
       const imageName = image.substring(image.lastIndexOf("/") + 1);
       const response = await fetch(image);
@@ -62,6 +78,7 @@ const RegisterScreen = ({ navigation }) => {
     }
   };
 
+  // Image picker:
   const pickImage = async () => {
     // handle permissions:
     if (Platform.OS !== "web") {
@@ -121,4 +138,4 @@ const RegisterScreen = ({ navigation }) => {
   );
 };
 
-export default RegisterScreen;
+export default connect(null, { setUser, setSettings })(RegisterScreen);

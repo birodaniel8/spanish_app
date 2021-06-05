@@ -10,7 +10,6 @@ import RegisterScreen from "./screens/RegisterScreen";
 import LoginScreen from "./screens/LoginScreen";
 import PracticeScreen from "./screens/PracticeScreen";
 import SettingsScreen from "./screens/SettingsScreen";
-import ImageUploader from "./screens/ImageUploader";
 
 // Create a Stack Navigator and set the global screen settings:
 const Stack = createStackNavigator();
@@ -28,7 +27,6 @@ export default function App() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Settings" component={SettingsScreen} />
           <Stack.Screen name="Practice" component={PracticeScreen} />
-          <Stack.Screen name="Uploader" component={ImageUploader} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

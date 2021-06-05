@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
+import "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD4jkPdOB7_9wIKAIzgNa1aG0NhbyXhGls",
@@ -8,7 +9,7 @@ const firebaseConfig = {
   projectId: "spanish-app-57e1a",
   storageBucket: "spanish-app-57e1a.appspot.com",
   messagingSenderId: "150252719296",
-  appId: "1:150252719296:web:8e01bf7c03504e91797125"
+  appId: "1:150252719296:web:8e01bf7c03504e91797125",
 };
 
 let app;
@@ -23,5 +24,6 @@ if (firebase.apps.length === 0) {
 // The database and authentication components are used:
 const db = app.firestore();
 const auth = firebase.auth();
+const storage = firebase.storage();
 
-export { db, auth };
+export { db, auth, storage };

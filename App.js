@@ -2,25 +2,35 @@ import React from "react";
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { Provider } from "react-redux";
 
+import store from "./store";
 import HomeScreen from "./screens/HomeScreen";
 import RegisterScreen from "./screens/RegisterScreen";
-import LoginScreen from "./screens/LoginScreen"
+import LoginScreen from "./screens/LoginScreen";
+import PracticeScreen from "./screens/PracticeScreen";
+import SettingsScreen from "./screens/SettingsScreen";
+import ImageUploader from "./screens/ImageUploader";
 
 // Create a Stack Navigator and set the global screen settings:
 const Stack = createStackNavigator();
 const globalScreenOptions = {
   headerShown: false,
-}
+};
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={globalScreenOptions}>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={globalScreenOptions}>
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Register" component={RegisterScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Settings" component={SettingsScreen} />
+          <Stack.Screen name="Practice" component={PracticeScreen} />
+          <Stack.Screen name="Uploader" component={ImageUploader} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }

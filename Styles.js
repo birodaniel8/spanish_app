@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor:'rgba(255,255,255,0.8)',
+    backgroundColor: "rgba(255,255,255,0.8)",
   },
 
   inputContainer: {
@@ -17,8 +17,34 @@ export const styles = StyleSheet.create({
     marginTop: 10,
   },
 
+  loginButton: {
+    backgroundColor: "black",
+  },
+
+  loginRegisterButton: {
+    backgroundColor: "goldenrod",
+  },
+
+  pickImageButton: {
+    backgroundColor: "tomato",
+  },
+
   registerButton: {
-    backgroundColor: "red",
+    backgroundColor: "goldenrod",
+  },
+
+  // Login:
+  loginH3: {
+    marginBottom: 50,
+    // borderWidth: 1,
+    borderColor: "grey",
+    width: "80%",
+    textAlign: "center",
+    borderTopLeftRadius: 25,
+    borderBottomRightRadius: 25,
+    backgroundColor: "firebrick",
+    padding: 5,
+    color: "white",
   },
 
   // WordCard styles:
@@ -108,9 +134,7 @@ export const styles = StyleSheet.create({
     borderWidth: 0,
   },
 
-  subSettingContainer: {
-
-  },
+  subSettingContainer: {},
 
   tenseCheckBox: {
     paddingLeft: "15%",

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View } from "react-native";
+import { ImageBackground, View } from "react-native";
 import { Avatar, Button, Input, Text } from "react-native-elements";
 import { styles } from "../Styles";
 import { auth, db, storage } from "../firebase";
@@ -7,7 +7,8 @@ import * as ImagePicker from "expo-image-picker";
 import MoodAndTenseTypes from "../configurations/MoodAndTenseTypes";
 import { connect } from "react-redux";
 import { setUser, setSettings } from "../actions/user";
-import DefaultPhotoUrl from "../configurations/DefaultPhotoURL";
+import DefaultPhotoUrl from "../configurations/DefaultPhotoUrl";
+import backgroundImage from "../assets/wp2.jpg";
 
 const RegisterScreen = ({ navigation, setUser, setSettings }) => {
   const [name, setName] = useState("");
@@ -91,9 +92,9 @@ const RegisterScreen = ({ navigation, setUser, setSettings }) => {
     // select image:
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: "Images",
-      allowsEditing: true,
+      allowsEditing: false,
       aspect: [3, 3],
-      quality: 1,
+      quality: 0.5,
     });
 
     if (!result.cancelled) {
@@ -102,39 +103,63 @@ const RegisterScreen = ({ navigation, setUser, setSettings }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text h3 style={{ marginBottom: 50 }}>
-        Register
-      </Text>
-      {image && <Avatar source={{ uri: image }} size="xlarge" rounded />}
-      <View style={styles.inputContainer}>
-        <Input placeholder="Full Name" autoFocus type="text" value={name} onChangeText={(text) => setName(text)} />
-        <Input placeholder="Email" type="email" value={email} onChangeText={(text) => setEmail(text)} />
-        <Input
-          placeholder="Password"
-          secureTextEntry
-          type="password"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
+    <ImageBackground source={backgroundImage} style={{ flex: 1, resizeMode: "cover", justifyContent: "center" }}>
+      <View style={styles.container}>
+        <Text h3 style={{ marginBottom: 50 }}>
+          Register
+        </Text>
+        {image && <Avatar source={{ uri: image }} size="xlarge" rounded />}
+        <View style={styles.inputContainer}>
+          <Input
+            placeholder="Full Name"
+            autoFocus
+            type="text"
+            value={name}
+            onChangeText={(text) => setName(text)}
+            inputContainerStyle={{ borderBottomColor: "black" }}
+          />
+          <Input
+            placeholder="Email"
+            type="email"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            inputContainerStyle={{ borderBottomColor: "black" }}
+          />
+          <Input
+            placeholder="Password"
+            secureTextEntry
+            type="password"
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+            inputContainerStyle={{ borderBottomColor: "black" }}
+          />
+          <Input
+            placeholder="Password again"
+            secureTextEntry
+            type="password"
+            value={password2}
+            onChangeText={(text) => setPassword2(text)}
+            onSubmitEditing={register}
+            inputContainerStyle={{ borderBottomColor: "black" }}
+          />
+        </View>
+        <Button
+          containerStyle={styles.buttonContainer}
+          titleStyle={{ color: "black" }}
+          title="Pick an image from camera roll"
+          onPress={pickImage}
+          buttonStyle={styles.pickImageButton}
         />
-        <Input
-          placeholder="Password again"
-          secureTextEntry
-          type="password"
-          value={password2}
-          onChangeText={(text) => setPassword2(text)}
-          onSubmitEditing={register}
+        <Button
+          containerStyle={styles.buttonContainer}
+          titleStyle={{ color: "black" }}
+          title="Register"
+          onPress={register}
+          raised
+          buttonStyle={styles.registerButton}
         />
       </View>
-      <Button containerStyle={styles.buttonContainer} title="Pick an image from camera roll" onPress={pickImage} />
-      <Button
-        containerStyle={styles.buttonContainer}
-        title="Register"
-        onPress={register}
-        raised
-        buttonStyle={styles.registerButton}
-      />
-    </View>
+    </ImageBackground>
   );
 };
 

@@ -4,7 +4,7 @@ import { Text, Button, Input } from "react-native-elements";
 import { auth, db } from "../firebase";
 import { styles } from "../Styles";
 
-import backgroundImage from "../assets/wp1.jpg";
+import backgroundImage from "../assets/wp2.jpg";
 import { connect } from "react-redux";
 import { setUser, setSettings } from "../actions/user";
 // const backgroundImage = require(`../assets/wp1.jpg`);
@@ -22,7 +22,9 @@ const LoginScreen = ({ navigation, setUser, setSettings }) => {
         db.collection("users")
           .doc(authUser.uid)
           .get()
-          .then((doc) => setSettings(doc.data().settings));
+          .then((doc) => {
+            doc.exists && setSettings(doc.data().settings);
+          });
         navigation.replace("Home");
       }
     });
@@ -38,11 +40,18 @@ const LoginScreen = ({ navigation, setUser, setSettings }) => {
   return (
     <ImageBackground source={backgroundImage} style={{ flex: 1, resizeMode: "cover", justifyContent: "center" }}>
       <View style={styles.container}>
-        <Text h3 style={{ marginBottom: 50 }}>
-          Login
+        <Text h3 style={styles.loginH3}>
+          ¡Conjugate!
         </Text>
         <View style={styles.inputContainer}>
-          <Input placeholder="Email" autoFocus type="email" value={email} onChangeText={(text) => setEmail(text)} />
+          <Input
+            placeholder="Email"
+            autoFocus
+            type="email"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            inputContainerStyle={{ borderBottomColor: "black" }}
+          />
           <Input
             placeholder="Password"
             secureTextEntry
@@ -50,13 +59,21 @@ const LoginScreen = ({ navigation, setUser, setSettings }) => {
             value={password}
             onChangeText={(text) => setPassword(text)}
             onSubmitEditing={signIn}
+            inputContainerStyle={{ borderBottomColor: "black" }}
           />
         </View>
 
-        <Button containerStyle={styles.buttonContainer} onPress={signIn} title="Login" />
         <Button
           containerStyle={styles.buttonContainer}
-          type="outline"
+          buttonStyle={styles.loginButton}
+          onPress={signIn}
+          title="Login"
+        />
+        <Button
+          containerStyle={styles.buttonContainer}
+          buttonStyle={styles.loginRegisterButton}
+          titleStyle={{ color: "black" }}
+          color="red"
           title="Register"
           onPress={() => navigation.navigate("Register")}
         />

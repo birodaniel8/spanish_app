@@ -1,20 +1,40 @@
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import { Input, Text, Button } from "react-native-elements";
+import { connect } from "react-redux";
 import { styles } from "../Styles";
+import { removeCorrectWordCard, replaceWrongWordCard } from "../actions/cards";
 
-const WordCard = ({ mood, tense, pronoun, word, wordDict }) => {
+const WordCard = ({ mood, tense, pronoun, word, wordDict, removeCorrectWordCard, replaceWrongWordCard }) => {
   const [text, setText] = useState("");
+  const [buttonTitle, setButtonTitle] = useState("Check");
 
-  useEffect(() => setText(""), [word]);
+  // useEffect(() => setText(""), [word]);
+
+  const buttonFunction = () => {
+    if (buttonTitle === "Check") {
+      checkIfCorrect();
+    } else {
+      nextCard();
+    }
+  };
 
   const checkIfCorrect = () => {
     if (wordDict.spanish === text.toLowerCase()) {
-      alert("Correct")
+      setButtonTitle("Correct");
     } else {
-      alert(`Not correct - ${wordDict.spanish}`)
+      setButtonTitle("Not Correct");
     }
-    setText("")
+  };
+
+  const nextCard = () => {
+    setButtonTitle("Check");
+    setText("");
+    if (buttonTitle === "Correct") {
+      removeCorrectWordCard();
+    } else {
+      replaceWrongWordCard();
+    }
   };
 
   return (
@@ -32,16 +52,12 @@ const WordCard = ({ mood, tense, pronoun, word, wordDict }) => {
           placeholder={word}
           value={text}
           onChangeText={(text) => setText(text)}
-          onSubmitEditing={checkIfCorrect}
+          onSubmitEditing={buttonFunction}
         />
       </View>
-      <Button
-        containerStyle={styles.buttonContainer}
-        title="Check"
-        onPress={checkIfCorrect}
-      />
+      <Button containerStyle={styles.buttonContainer} title={buttonTitle} onPress={buttonFunction} />
     </View>
   );
 };
 
-export default WordCard;
+export default connect(null, { removeCorrectWordCard, replaceWrongWordCard })(WordCard);

@@ -41,7 +41,7 @@ const LoginScreen = ({ navigation, setUser, setSettings }) => {
     <ImageBackground source={backgroundImage} style={{ flex: 1, resizeMode: "cover", justifyContent: "center" }}>
       <View style={styles.container}>
         <Text h3 style={styles.loginH3}>
-          ¡Conjugate!
+          ¡!¡!¡!¡!¡!¡!
         </Text>
         <View style={styles.inputContainer}>
           <Input

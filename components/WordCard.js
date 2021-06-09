@@ -8,6 +8,7 @@ import { removeCorrectWordCard, replaceWrongWordCard } from "../actions/cards";
 const WordCard = ({ mood, tense, pronoun, word, wordDict, removeCorrectWordCard, replaceWrongWordCard }) => {
   const [text, setText] = useState("");
   const [buttonTitle, setButtonTitle] = useState("Check");
+  const [buttonStyle, setButtonStyle] = useState("checkCardButton");
 
   // useEffect(() => setText(""), [word]);
 
@@ -22,14 +23,18 @@ const WordCard = ({ mood, tense, pronoun, word, wordDict, removeCorrectWordCard,
   const checkIfCorrect = () => {
     if (wordDict.spanish === text.toLowerCase()) {
       setButtonTitle("Correct");
+      setButtonStyle("correctCardButton")
     } else {
       setButtonTitle("Not Correct");
+      setButtonStyle("wrongCardButton")
+      setText(wordDict.spanish)
     }
   };
 
   const nextCard = () => {
     setButtonTitle("Check");
     setText("");
+    setButtonStyle("checkCardButton")
     if (buttonTitle === "Correct") {
       removeCorrectWordCard();
     } else {
@@ -55,7 +60,12 @@ const WordCard = ({ mood, tense, pronoun, word, wordDict, removeCorrectWordCard,
           onSubmitEditing={buttonFunction}
         />
       </View>
-      <Button containerStyle={styles.buttonContainer} title={buttonTitle} onPress={buttonFunction} />
+      <Button
+        containerStyle={styles.buttonContainer}
+        buttonStyle={styles[buttonStyle]}
+        title={buttonTitle}
+        onPress={buttonFunction}
+      />
     </View>
   );
 };

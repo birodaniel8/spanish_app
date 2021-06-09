@@ -26,7 +26,8 @@ const PracticeScreen = ({ navigation, dictionary, wordCardList, setWordCardList 
         setSelectedWordCard(wordCardList[0]);
         setCount(totalWords - wordCardList.length + 1);
       } else {
-        navigation.replace("Home");
+        setWordCardList(null);
+        navigation.replace("PracticeDone");
       }
     }
   }, [wordCardList]);

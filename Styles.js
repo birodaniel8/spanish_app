@@ -33,6 +33,18 @@ export const styles = StyleSheet.create({
     backgroundColor: "goldenrod",
   },
 
+  checkCardButton: {
+    backgroundColor: "blue",
+  },
+
+  correctCardButton: {
+    backgroundColor: "green",
+  },
+
+  wrongCardButton: {
+    backgroundColor: "red",
+  },
+
   // Login:
   loginH3: {
     marginBottom: 50,

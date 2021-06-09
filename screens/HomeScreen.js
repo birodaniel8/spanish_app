@@ -50,7 +50,7 @@ const HomeScreen = ({ navigation, user, settings, setUser, setSettings, loadDict
           {user?.photoURL && <Avatar source={{ uri: user.photoURL }} size="xlarge" rounded />}
           <Text h3>¡Hola {user?.displayName}!</Text>
           <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
-            <AntDesign name="setting" size={24} color="black" />
+            <AntDesign name="setting" size={36} color="black" />
           </TouchableOpacity>
           <Button
             containerStyle={styles.buttonContainer}

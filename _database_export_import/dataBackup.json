@@ -1,0 +1,522 @@
+{
+  "__collections__": {
+    "users": {
+      "AkIJ8FalqqcFixmuKWdP0DxS3oA2": {
+        "settings": {
+          "elEllaUsted": false,
+          "Indicative": {
+            "Preterite": true,
+            "Imperfect": true,
+            "Present": true,
+            "Future": true,
+            "Conditional": true
+          },
+          "Perfect Subjunctive": {
+            "Future": true,
+            "Present": true,
+            "Past": true
+          },
+          "onlyEnglish": true,
+          "Perfect": {
+            "Past": true,
+            "Preterite": true,
+            "Future": true,
+            "Present": true,
+            "Conditional": true
+          },
+          "Imperative": {
+            "Negative": true,
+            "Affirmative": true
+          },
+          "Subjunctive": {
+            "Imperfect 2": true,
+            "Present": true,
+            "Imperfect": true,
+            "Future": true
+          },
+          "Progressive": {
+            "Future": true,
+            "Conditional": true,
+            "Imperfect": true,
+            "Present": true,
+            "Preterite": true
+          }
+        },
+        "__collections__": {}
+      },
+      "DkAQGAu17rhBGybPYKuXy2HuJUg1": {
+        "settings": {
+          "Perfect Subjunctive": {
+            "Present": true,
+            "Past": true,
+            "Future": true
+          },
+          "Indicative": {
+            "Present": true,
+            "Imperfect": true,
+            "Conditional": true,
+            "Future": true,
+            "Preterite": true
+          },
+          "elEllaUsted": false,
+          "Subjunctive": {
+            "Future": true,
+            "Present": true,
+            "Imperfect": true,
+            "Imperfect 2": true
+          },
+          "onlyEnglish": true,
+          "Progressive": {
+            "Present": true,
+            "Preterite": true,
+            "Imperfect": true,
+            "Conditional": true,
+            "Future": true
+          },
+          "Imperative": {
+            "Affirmative": true,
+            "Negative": true
+          },
+          "Perfect": {
+            "Preterite": true,
+            "Future": true,
+            "Present": true,
+            "Conditional": true,
+            "Past": true
+          }
+        },
+        "__collections__": {}
+      },
+      "H1FMLEXFCPg7RJdHFKYENCPsazf2": {
+        "settings": {
+          "elEllaUsted": false,
+          "Imperative": {
+            "Affirmative": true,
+            "Negative": true
+          },
+          "Perfect": {
+            "Past": true,
+            "Preterite": true,
+            "Conditional": true,
+            "Future": true,
+            "Present": true
+          },
+          "Subjunctive": {
+            "Present": true,
+            "Imperfect 2": true,
+            "Future": true,
+            "Imperfect": true
+          },
+          "Indicative": {
+            "Preterite": true,
+            "Present": true,
+            "Imperfect": true,
+            "Conditional": true,
+            "Future": true
+          },
+          "Progressive": {
+            "Future": true,
+            "Preterite": true,
+            "Present": true,
+            "Conditional": true,
+            "Imperfect": true
+          },
+          "Perfect Subjunctive": {
+            "Future": true,
+            "Past": true,
+            "Present": true
+          },
+          "onlyEnglish": true
+        },
+        "__collections__": {}
+      },
+      "MVfZehuDqvYBmqMKuCZR3nPDCWi1": {
+        "settings": {
+          "elEllaUsted": false,
+          "Perfect Subjunctive": {
+            "Present": true,
+            "Past": true,
+            "Future": true
+          },
+          "Indicative": {
+            "Imperfect": true,
+            "Conditional": true,
+            "Present": true,
+            "Future": true,
+            "Preterite": true
+          },
+          "onlyEnglish": true,
+          "Imperative": {
+            "Negative": true,
+            "Affirmative": true
+          },
+          "Progressive": {
+            "Conditional": true,
+            "Present": true,
+            "Future": true,
+            "Preterite": true,
+            "Imperfect": true
+          },
+          "Perfect": {
+            "Present": true,
+            "Future": true,
+            "Past": true,
+            "Conditional": true,
+            "Preterite": true
+          },
+          "Subjunctive": {
+            "Present": true,
+            "Future": true,
+            "Imperfect 2": true,
+            "Imperfect": true
+          }
+        },
+        "__collections__": {}
+      },
+      "Qa1M9FB7lwarBPuBPgBwPunYsym1": {
+        "settings": {
+          "onlyEnglish": true,
+          "Perfect": {
+            "Past": true,
+            "Present": true,
+            "Future": true,
+            "Conditional": true,
+            "Preterite": true
+          },
+          "Subjunctive": {
+            "Future": true,
+            "Present": true,
+            "Imperfect 2": true,
+            "Imperfect": true
+          },
+          "Perfect Subjunctive": {
+            "Present": true,
+            "Past": true,
+            "Future": true
+          },
+          "elEllaUsted": false,
+          "Progressive": {
+            "Conditional": true,
+            "Imperfect": true,
+            "Present": true,
+            "Future": true,
+            "Preterite": true
+          },
+          "Indicative": {
+            "Future": true,
+            "Imperfect": true,
+            "Present": true,
+            "Conditional": true,
+            "Preterite": true
+          },
+          "Imperative": {
+            "Affirmative": true,
+            "Negative": true
+          }
+        },
+        "__collections__": {}
+      },
+      "RIvmn3CGMshUuCoQp8t610JVzcp1": {
+        "settings": {
+          "elEllaUsted": false,
+          "Imperative": {
+            "Affirmative": false,
+            "Negative": false
+          },
+          "Perfect": {
+            "Past": false,
+            "Conditional": false,
+            "Preterite": false,
+            "Future": false,
+            "Present": false
+          },
+          "onlyEnglish": true,
+          "Subjunctive": {
+            "Imperfect 2": false,
+            "Imperfect": false,
+            "Present": false,
+            "Future": false
+          },
+          "Indicative": {
+            "Conditional": false,
+            "Imperfect": false,
+            "Future": false,
+            "Present": true,
+            "Preterite": false
+          },
+          "Progressive": {
+            "Future": false,
+            "Imperfect": false,
+            "Conditional": false,
+            "Present": false,
+            "Preterite": false
+          },
+          "Perfect Subjunctive": {
+            "Present": false,
+            "Past": false,
+            "Future": false
+          }
+        },
+        "__collections__": {}
+      },
+      "YFyDiklkeEOip9DdXkvV3R9PKN62": {
+        "settings": {
+          "Imperative": {
+            "Negative": true,
+            "Affirmative": true
+          },
+          "Subjunctive": {
+            "Imperfect": true,
+            "Future": true,
+            "Imperfect 2": true,
+            "Present": true
+          },
+          "onlyEnglish": true,
+          "Progressive": {
+            "Present": true,
+            "Preterite": true,
+            "Conditional": true,
+            "Future": true,
+            "Imperfect": true
+          },
+          "Perfect": {
+            "Past": true,
+            "Conditional": true,
+            "Present": true,
+            "Future": true,
+            "Preterite": true
+          },
+          "Perfect Subjunctive": {
+            "Future": true,
+            "Past": true,
+            "Present": true
+          },
+          "elEllaUsted": false,
+          "Indicative": {
+            "Present": true,
+            "Conditional": true,
+            "Future": true,
+            "Preterite": true,
+            "Imperfect": true
+          }
+        },
+        "__collections__": {}
+      },
+      "YLphuyUBmjVvTtqJtQ0eHUbIZUY2": {
+        "settings": {
+          "elEllaUsted": false,
+          "onlyEnglish": true,
+          "Imperative": {
+            "Affirmative": true,
+            "Negative": true
+          },
+          "Subjunctive": {
+            "Imperfect 2": true,
+            "Present": true,
+            "Imperfect": true,
+            "Future": true
+          },
+          "Perfect": {
+            "Present": true,
+            "Past": true,
+            "Preterite": true,
+            "Future": true,
+            "Conditional": true
+          },
+          "Perfect Subjunctive": {
+            "Past": true,
+            "Present": true,
+            "Future": true
+          },
+          "Indicative": {
+            "Conditional": true,
+            "Preterite": true,
+            "Future": true,
+            "Present": true,
+            "Imperfect": true
+          },
+          "Progressive": {
+            "Future": true,
+            "Imperfect": true,
+            "Conditional": true,
+            "Present": true,
+            "Preterite": true
+          }
+        },
+        "__collections__": {}
+      },
+      "gV8QSxjRRbc8ySQdX09ZkoTbp2z1": {
+        "settings": {
+          "onlyEnglish": true,
+          "Subjunctive": {
+            "Present": true,
+            "Imperfect": true,
+            "Imperfect 2": true,
+            "Future": true
+          },
+          "Indicative": {
+            "Conditional": true,
+            "Imperfect": true,
+            "Present": true,
+            "Future": true,
+            "Preterite": true
+          },
+          "Progressive": {
+            "Future": true,
+            "Present": true,
+            "Conditional": true,
+            "Preterite": true,
+            "Imperfect": true
+          },
+          "Perfect": {
+            "Conditional": true,
+            "Past": true,
+            "Present": true,
+            "Preterite": true,
+            "Future": true
+          },
+          "Imperative": {
+            "Affirmative": true,
+            "Negative": true
+          },
+          "elEllaUsted": false,
+          "Perfect Subjunctive": {
+            "Present": true,
+            "Future": true,
+            "Past": true
+          }
+        },
+        "__collections__": {}
+      },
+      "lZ6kyq1eu9fccJVggnLXHz2SPzw2": {
+        "settings": {
+          "Progressive": {
+            "Present": true,
+            "Conditional": true,
+            "Future": true,
+            "Imperfect": true,
+            "Preterite": true
+          },
+          "elEllaUsted": false,
+          "onlyEnglish": true,
+          "Perfect": {
+            "Preterite": true,
+            "Conditional": true,
+            "Present": true,
+            "Future": true,
+            "Past": true
+          },
+          "Subjunctive": {
+            "Present": true,
+            "Imperfect": true,
+            "Future": true,
+            "Imperfect 2": true
+          },
+          "Perfect Subjunctive": {
+            "Past": true,
+            "Future": true,
+            "Present": true
+          },
+          "Indicative": {
+            "Conditional": true,
+            "Present": true,
+            "Future": true,
+            "Preterite": true,
+            "Imperfect": true
+          },
+          "Imperative": {
+            "Affirmative": true,
+            "Negative": true
+          }
+        },
+        "__collections__": {}
+      },
+      "lijlXNsfgmeEzWu1YkRziSiabkj2": {
+        "settings": {
+          "Perfect": {
+            "Past": true,
+            "Conditional": true,
+            "Present": true,
+            "Future": true,
+            "Preterite": true
+          },
+          "Subjunctive": {
+            "Imperfect 2": true,
+            "Future": true,
+            "Present": true,
+            "Imperfect": true
+          },
+          "elEllaUsted": false,
+          "Indicative": {
+            "Preterite": true,
+            "Conditional": true,
+            "Imperfect": true,
+            "Present": true,
+            "Future": true
+          },
+          "Perfect Subjunctive": {
+            "Future": true,
+            "Present": true,
+            "Past": true
+          },
+          "Progressive": {
+            "Preterite": true,
+            "Present": true,
+            "Conditional": true,
+            "Imperfect": true,
+            "Future": true
+          },
+          "onlyEnglish": true,
+          "Imperative": {
+            "Negative": true,
+            "Affirmative": true
+          }
+        },
+        "__collections__": {}
+      },
+      "qQbiDid1frcWtXD99dREmjeoHBp1": {
+        "settings": {
+          "Subjunctive": {
+            "Imperfect": true,
+            "Present": true,
+            "Future": true,
+            "Imperfect 2": true
+          },
+          "elEllaUsted": false,
+          "Progressive": {
+            "Preterite": true,
+            "Present": true,
+            "Future": true,
+            "Conditional": true,
+            "Imperfect": true
+          },
+          "Imperative": {
+            "Affirmative": true,
+            "Negative": true
+          },
+          "Perfect Subjunctive": {
+            "Past": true,
+            "Future": true,
+            "Present": true
+          },
+          "onlyEnglish": true,
+          "Perfect": {
+            "Conditional": true,
+            "Present": true,
+            "Preterite": true,
+            "Future": true,
+            "Past": true
+          },
+          "Indicative": {
+            "Preterite": true,
+            "Conditional": true,
+            "Imperfect": true,
+            "Future": true,
+            "Present": true
+          }
+        },
+        "__collections__": {}
+      }
+    }
+  }
+}

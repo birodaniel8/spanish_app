@@ -8,10 +8,14 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo-google-fonts/merienda": "^0.2.0",
+    "@expo-google-fonts/montserrat": "^0.2.0",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/native": "^5.9.4",
     "@react-navigation/stack": "^5.14.5",
     "expo": "~41.0.1",
+    "expo-app-loading": "^1.1.2",
+    "expo-image-picker": "~10.1.4",
     "expo-status-bar": "~1.0.4",
     "firebase": "8.2.3",
     "react": "16.13.1",
@@ -26,8 +30,7 @@
     "react-redux": "^7.2.4",
     "redux": "^4.1.0",
     "redux-devtools-extension": "^2.13.9",
-    "redux-thunk": "^2.3.0",
-    "expo-image-picker": "~10.1.4"
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"

@@ -12,6 +12,11 @@ import PracticeScreen from "./screens/PracticeScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import PracticeDoneScreen from "./screens/PracticeDoneScreen";
 
+import AppLoading from "expo-app-loading";
+import { useFonts } from "@expo-google-fonts/merienda";
+import { Merienda_700Bold } from "@expo-google-fonts/merienda";
+import { Montserrat_400Regular, Montserrat_700Bold } from "@expo-google-fonts/montserrat";
+
 // Create a Stack Navigator and set the global screen settings:
 const Stack = createStackNavigator();
 const globalScreenOptions = {
@@ -19,18 +24,23 @@ const globalScreenOptions = {
 };
 
 export default function App() {
-  return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={globalScreenOptions}>
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Register" component={RegisterScreen} />
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Settings" component={SettingsScreen} />
-          <Stack.Screen name="Practice" component={PracticeScreen} />
-          <Stack.Screen name="PracticeDone" component={PracticeDoneScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </Provider>
-  );
+  let [fontsLoaded] = useFonts({ Merienda_700Bold, Montserrat_400Regular, Montserrat_700Bold });
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  } else {
+    return (
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={globalScreenOptions}>
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Settings" component={SettingsScreen} />
+            <Stack.Screen name="Practice" component={PracticeScreen} />
+            <Stack.Screen name="PracticeDone" component={PracticeDoneScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
+    );
+  }
 }

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { ImageBackground, View } from "react-native";
+import { Image, View, ScrollView } from "react-native";
 import { Avatar, Button, Text } from "react-native-elements";
 import { styles } from "../Styles";
 import { auth, db } from "../firebase";
 import { loadDictionary } from "../actions/dictionary";
 import dictionaryJSON from "../assets/dictionary.json";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import { setUser, setSettings } from "../actions/user";
-import backgroundImage from "../assets/wp2.jpg";
+import logo from "../assets/logo.png";
 
 const HomeScreen = ({ navigation, user, settings, setUser, setSettings, loadDictionary }) => {
   // Sign Out:
@@ -43,31 +43,61 @@ const HomeScreen = ({ navigation, user, settings, setUser, setSettings, loadDict
     loadDictionary(filteredDictionary);
   }, [settings]);
 
+  var unsubscribe = db.collection("dictionary").where("mood", "in", ["Indicative", "asdf", "Imperative"]);
+  if (0 < 1) {
+    unsubscribe = unsubscribe.where("mood", "==", "Indicative");
+  }
+  unsubscribe.get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, " => ", doc.data());
+    });
+  });
+
   if (user?.displayName) {
     return (
-      <ImageBackground source={backgroundImage} style={{ flex: 1, resizeMode: "cover", justifyContent: "center" }}>
-        <View style={styles.container}>
-          {user?.photoURL && <Avatar source={{ uri: user.photoURL }} size="xlarge" rounded />}
-          <Text h3>¡Hola {user?.displayName}!</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
-            <AntDesign name="setting" size={36} color="black" />
+      <View style={{flex: 1}}>
+        <View style={styles.pageHeader}>
+          <TouchableOpacity onPress={() => navigation.replace("Home")}>
+            <AntDesign name="setting" size={28} color="black" />
           </TouchableOpacity>
-          <Button
-            containerStyle={styles.buttonContainer}
-            onPress={() => navigation.navigate("Practice")}
-            title="¡Vamos a practicar!"
-          />
-          <Button containerStyle={styles.buttonContainer} onPress={signOutUser} title="Sign out" type="outline" />
+          <TouchableOpacity onPress={signOutUser}>
+            <MaterialIcons name="logout" size={28} color="black" />
+          </TouchableOpacity>
         </View>
-      </ImageBackground>
+        <ScrollView contentContainerStyle={styles.pageContainer}>
+          <View style={styles.profilePictureContainer}>
+            <Image source={logo} style={styles.flagBackground}></Image>
+            {user?.photoURL && (
+              <Avatar
+                source={{ uri: user.photoURL }}
+                size="xlarge"
+                rounded
+                avatarStyle={{ borderWidth: 0.5, borderRadius: 100 }}
+              />
+            )}
+          </View>
+          <Text style={styles.greedingText}>¡Hola {user?.displayName}!</Text>
+          <Button
+            containerStyle={{ ...styles.primaryButtonContainer, width: "60%" }}
+            buttonStyle={styles.primaryButton}
+            titleStyle={styles.primaryButtonText}
+            onPress={() => navigation.navigate("Practice")}
+            title="Let's practice!"
+          />
+          {/* <Button containerStyle={styles.buttonContainer} onPress={signOutUser} title="Sign out" type="outline" /> */}
+          <Text style={{ ...styles.defaultText, marginTop: 40, marginBottom: 6 }}>Word of the day:</Text>
+          <View style={styles.wordOfDayContainer}>
+            <Text>correr</Text>
+          </View>
+        </ScrollView>
+      </View>
     );
   } else {
     return (
-      <ImageBackground source={backgroundImage} style={{ flex: 1, resizeMode: "cover", justifyContent: "center" }}>
-        <View style={styles.container}>
-          <Text>loading...</Text>
-        </View>
-      </ImageBackground>
+      <View style={styles.pageContainer}>
+        <Text>loading...</Text>
+      </View>
     );
   }
 };

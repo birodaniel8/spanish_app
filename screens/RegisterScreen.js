@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ImageBackground, View } from "react-native";
+import { View } from "react-native";
 import { Avatar, Button, Input, Text } from "react-native-elements";
 import { styles } from "../Styles";
 import { auth, db, storage } from "../firebase";
@@ -8,13 +8,11 @@ import MoodAndTenseTypes from "../configurations/MoodAndTenseTypes";
 import { connect } from "react-redux";
 import { setUser, setSettings } from "../actions/user";
 import DefaultPhotoUrl from "../configurations/DefaultPhotoUrl";
-import backgroundImage from "../assets/wp2.jpg";
 
 const RegisterScreen = ({ navigation, setUser, setSettings }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [password2, setPassword2] = useState("");
   const [image, setImage] = useState(null);
 
   // mood and tense default settings:
@@ -26,40 +24,34 @@ const RegisterScreen = ({ navigation, setUser, setSettings }) => {
   }, {});
 
   const register = () => {
-    if (password !== password2) {
-      setPassword("");
-      setPassword2("");
-      alert("The passwords do not match.");
-    } else {
-      // Create a new used based on email and password and then add the selected name and photo:
-      auth
-        .createUserWithEmailAndPassword(email, password)
-        .then(async (authUser) => {
-          await authUser.user.updateProfile({
-            displayName: name,
-            photoURL: DefaultPhotoUrl,
+    // Create a new user based on email and password and then add the selected name and photo:
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(async (authUser) => {
+        await authUser.user.updateProfile({
+          displayName: name,
+          photoURL: DefaultPhotoUrl,
+        });
+        // upload an image too:
+        await uploadImage(authUser);
+        // add the base settings to the database:
+        await db
+          .collection("users")
+          .doc(authUser.user.uid)
+          .set({
+            settings: {
+              ...defaultMoodSettings,
+              elEllaUsted: false,
+              onlyEnglish: true,
+            },
           });
-          // upload an image too:
-          await uploadImage(authUser);
-          // add the base settings to the database:
-          await db
-            .collection("users")
-            .doc(authUser.user.uid)
-            .set({
-              settings: {
-                ...defaultMoodSettings,
-                elEllaUsted: false,
-                onlyEnglish: true,
-              },
-            });
-          // add to states:
-          setUser(authUser.user);
-          setSettings(defaultMoodSettings);
-          // refresh the home page:
-          navigation.replace("Home");
-        })
-        .catch((error) => alert(error.message));
-    }
+        // add to states:
+        setUser(authUser.user);
+        setSettings(defaultMoodSettings);
+        // refresh the home page:
+        navigation.replace("Home");
+      })
+      .catch((error) => alert(error.message));
   };
 
   // Upload the photo:
@@ -103,63 +95,51 @@ const RegisterScreen = ({ navigation, setUser, setSettings }) => {
   };
 
   return (
-    <ImageBackground source={backgroundImage} style={{ flex: 1, resizeMode: "cover", justifyContent: "center" }}>
-      <View style={styles.container}>
-        <Text h3 style={{ marginBottom: 50 }}>
-          Register
-        </Text>
-        {image && <Avatar source={{ uri: image }} size="xlarge" rounded />}
-        <View style={styles.inputContainer}>
-          <Input
-            placeholder="Full Name"
-            autoFocus
-            type="text"
-            value={name}
-            onChangeText={(text) => setName(text)}
-            inputContainerStyle={{ borderBottomColor: "black" }}
-          />
-          <Input
-            placeholder="Email"
-            type="email"
-            value={email}
-            onChangeText={(text) => setEmail(text)}
-            inputContainerStyle={{ borderBottomColor: "black" }}
-          />
-          <Input
-            placeholder="Password"
-            secureTextEntry
-            type="password"
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-            inputContainerStyle={{ borderBottomColor: "black" }}
-          />
-          <Input
-            placeholder="Password again"
-            secureTextEntry
-            type="password"
-            value={password2}
-            onChangeText={(text) => setPassword2(text)}
-            onSubmitEditing={register}
-            inputContainerStyle={{ borderBottomColor: "black" }}
-          />
-        </View>
-        <Button
-          containerStyle={styles.buttonContainer}
-          titleStyle={{ color: "black" }}
-          title="Pick an image from camera roll"
-          onPress={pickImage}
-          buttonStyle={styles.pickImageButton}
+    <View style={styles.pageContainer}>
+      <Text h3 style={styles.h1Text}>
+        Register
+      </Text>
+      <Avatar source={image ? { uri: image } : { uri: DefaultPhotoUrl }} size="xlarge" rounded onPress={pickImage} />
+      <Text
+        style={{ ...styles.defaultText, textDecorationLine: "underline", marginBottom: 35, marginTop: 10 }}
+        onPress={pickImage}
+      >
+        Pick a profile picture
+      </Text>
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputFieldLabel}>Full name</Text>
+        <Input
+          autoFocus
+          type="text"
+          value={name}
+          onChangeText={(text) => setName(text)}
+          inputContainerStyle={styles.inputField}
         />
-        <Button
-          containerStyle={styles.buttonContainer}
-          titleStyle={{ color: "black" }}
-          title="Register"
-          onPress={register}
-          raised
-          buttonStyle={styles.registerButton}
+        <Text style={styles.inputFieldLabel}>Email</Text>
+        <Input
+          type="email"
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+          inputContainerStyle={styles.inputField}
+        />
+        <Text style={styles.inputFieldLabel}>Password</Text>
+        <Input
+          secureTextEntry
+          type="password"
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+          inputContainerStyle={styles.inputField}
         />
       </View>
-    </ImageBackground>
+      <Button
+        containerStyle={styles.secondaryButtonContainer}
+        buttonStyle={styles.secondaryButton}
+        titleStyle={styles.secondaryButtonText}
+        title="Register"
+        onPress={register}
+        raised
+      />
+    </View>
   );
 };
 

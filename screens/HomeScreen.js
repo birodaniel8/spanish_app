@@ -12,6 +12,10 @@ import { setUser, setSettings } from "../actions/user";
 import logo from "../assets/logo.png";
 
 const HomeScreen = ({ navigation, user, settings, setUser, setSettings, loadDictionary }) => {
+  const [wordOfTheDayDict, setWordOfTheDayDict] = useState({});
+
+  var wordOfTheDay = "venir";
+
   // Sign Out:
   const signOutUser = () => {
     auth.signOut().then(() => {
@@ -43,22 +47,77 @@ const HomeScreen = ({ navigation, user, settings, setUser, setSettings, loadDict
     loadDictionary(filteredDictionary);
   }, [settings]);
 
-  var unsubscribe = db.collection("dictionary").where("mood", "in", ["Indicative", "asdf", "Imperative"]);
-  if (0 < 1) {
-    unsubscribe = unsubscribe.where("mood", "==", "Indicative");
-  }
-  unsubscribe.get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
-    });
-  });
+  useEffect(() => {
+    console.log("-------------------------------------");
+    var unsubscribe = db.collection("dictionary").where("verb", "==", wordOfTheDay);
+    unsubscribe
+      .where("mood", "==", "Indicative")
+      .where("pronoun", "==", "yo")
+      .where("tense", "==", "Present")
+      .get()
+      .then((querySnapshot) => {
+        setWordOfTheDayDict((prevState) => {
+          return { ...prevState, yoPresent: querySnapshot.docs[0].data() };
+        });
+      });
+
+    unsubscribe
+      .where("mood", "==", "Indicative")
+      .where("pronoun", "==", "tú")
+      .where("tense", "==", "Present")
+      .get()
+      .then((querySnapshot) => {
+        setWordOfTheDayDict((prevState) => {
+          return { ...prevState, tuPresent: querySnapshot.docs[0].data() };
+        });
+      });
+
+    unsubscribe
+      .where("mood", "==", "Indicative")
+      .where("pronoun", "==", "yo")
+      .where("tense", "==", "Preterite")
+      .get()
+      .then((querySnapshot) => {
+        setWordOfTheDayDict((prevState) => {
+          return { ...prevState, yoPreterite: querySnapshot.docs[0].data() };
+        });
+      });
+
+    unsubscribe
+      .where("mood", "==", "Progressive")
+      .where("pronoun", "==", "nosotros")
+      .where("tense", "==", "Present")
+      .get()
+      .then((querySnapshot) => {
+        setWordOfTheDayDict((prevState) => {
+          return { ...prevState, nosotrosProgressivePresent: querySnapshot.docs[0].data() };
+        });
+      });
+  }, []);
+  // console.log(wordOfTheDayDict.first);
+  // if (Object.keys(wordOfTheDayDict).length >= 4) {
+  //   console.log(Object.keys(wordOfTheDayDict["yoPresent"]));
+  // }
+
+  // word_of_the_day_query_1.get().then((querySnapshot) => {
+  //   console.log(querySnapshot.docs[0].id, " => ", querySnapshot.docs[0].data());
+  //   // let docs = querySnapshot.docs;
+  //   // for (let doc of docs) {
+  //   //   console.log(doc.id, " => ", doc.data());
+  //   // }
+  // });
+  // word_of_the_day_query_1.get().then((querySnapshot) => {
+  //   querySnapshot.forEach((doc) => {
+  //     // doc.data() is never undefined for query doc snapshots
+  //     console.log(doc.id, " => ", doc.data());
+  //   });
+  // });
 
   if (user?.displayName) {
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <View style={styles.pageHeader}>
-          <TouchableOpacity onPress={() => navigation.replace("Home")}>
+          <TouchableOpacity onPress={() => navigation.replace("Settings")}>
             <AntDesign name="setting" size={28} color="black" />
           </TouchableOpacity>
           <TouchableOpacity onPress={signOutUser}>
@@ -85,18 +144,35 @@ const HomeScreen = ({ navigation, user, settings, setUser, setSettings, loadDict
             onPress={() => navigation.navigate("Practice")}
             title="Let's practice!"
           />
-          {/* <Button containerStyle={styles.buttonContainer} onPress={signOutUser} title="Sign out" type="outline" /> */}
-          <Text style={{ ...styles.defaultText, marginTop: 40, marginBottom: 6 }}>Word of the day:</Text>
-          <View style={styles.wordOfDayContainer}>
-            <Text>correr</Text>
-          </View>
+
+          {Object.keys(wordOfTheDayDict).length == 4 ? (
+            <Text style={styles.wordOfTheDayHeader}>Word of the day:</Text>
+          ) : null}
+          {Object.keys(wordOfTheDayDict).length == 4 ? (
+            <View style={styles.wordOfDayContainer}>
+              <View style={{ alignItems: "center", marginTop: 10 }}>
+                <Image source={logo} style={{ height: 100, width: 200 }}></Image>
+              </View>
+              <Text style={styles.wordOfTheDaySpanish}>{wordOfTheDay}</Text>
+              <Text style={styles.wordOfTheDayEnglish}>{wordOfTheDayDict.yoPresent.english.split(" ")[1]}</Text>
+              {["yoPresent", "tuPresent", "yoPreterite", "nosotrosProgressivePresent"].map((i) => (
+                <Text key={i} style={styles.wordOfTheDayExamples}>
+                  {wordOfTheDayDict[i].pronoun +
+                    " " +
+                    wordOfTheDayDict[i].spanish +
+                    " - " +
+                    wordOfTheDayDict[i].english}{" "}
+                </Text>
+              ))}
+            </View>
+          ) : null}
         </ScrollView>
       </View>
     );
   } else {
     return (
       <View style={styles.pageContainer}>
-        <Text>loading...</Text>
+        <Text>{"loading..."}</Text>
       </View>
     );
   }

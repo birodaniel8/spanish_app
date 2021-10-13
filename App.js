@@ -15,7 +15,7 @@ import PracticeDoneScreen from "./screens/PracticeDoneScreen";
 import AppLoading from "expo-app-loading";
 import { useFonts } from "@expo-google-fonts/merienda";
 import { Merienda_700Bold } from "@expo-google-fonts/merienda";
-import { Montserrat_400Regular, Montserrat_700Bold } from "@expo-google-fonts/montserrat";
+import { Montserrat_400Regular, Montserrat_400Regular_Italic, Montserrat_700Bold } from "@expo-google-fonts/montserrat";
 
 // Create a Stack Navigator and set the global screen settings:
 const Stack = createStackNavigator();
@@ -24,7 +24,12 @@ const globalScreenOptions = {
 };
 
 export default function App() {
-  let [fontsLoaded] = useFonts({ Merienda_700Bold, Montserrat_400Regular, Montserrat_700Bold });
+  let [fontsLoaded] = useFonts({
+    Merienda_700Bold,
+    Montserrat_400Regular,
+    Montserrat_400Regular_Italic,
+    Montserrat_700Bold,
+  });
   if (!fontsLoaded) {
     return <AppLoading />;
   } else {

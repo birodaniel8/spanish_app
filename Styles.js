@@ -8,6 +8,7 @@ const primaryColor = "#C7031B";
 const secondaryColor = "#FDC605";
 const spanishFont = "Merienda_700Bold";
 const defaultFont = "Montserrat_400Regular";
+const defaultItalicFont = "Montserrat_400Regular_Italic";
 const defaultBoldFont = "Montserrat_700Bold";
 
 const shadowSettings = {
@@ -153,6 +154,32 @@ export const styles = StyleSheet.create({
     marginBottom: 16,
   },
 
+  wordOfTheDayHeader: {
+    fontFamily: defaultFont,
+    marginTop: 40,
+    marginBottom: 6,
+  },
+
+  wordOfTheDaySpanish: {
+    fontFamily: defaultBoldFont,
+    fontSize: 18,
+    textAlign: "center",
+    marginTop: 10,
+  },
+
+  wordOfTheDayEnglish: {
+    fontFamily: defaultItalicFont,
+    fontSize: 18,
+    textAlign: "center",
+    color: "#C0C0C0",
+    marginBottom: 20,
+  },
+
+  wordOfTheDayExamples: {
+    fontFamily: defaultFont,
+    paddingLeft: 10,
+  },
+
   // Profile picture with background:
   profilePictureContainer: {
     width: 240,
@@ -173,6 +200,8 @@ export const styles = StyleSheet.create({
     width: "90%",
     borderRadius: 5,
     borderWidth: 1,
+    backgroundColor: backgroundColor,
+    ...shadowSettings,
   },
 
   // Old stuff:

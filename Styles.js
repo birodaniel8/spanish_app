@@ -4,8 +4,9 @@ const backgroundColor = "#FCFCFC";
 const inputBorderColor = "#C0C0C0";
 const inputbackgroundColor = "#FFFFFF";
 const shadowColor = "#000000";
-const primaryColor = "#C7031B";
+export const primaryColor = "#C7031B";
 const secondaryColor = "#FDC605";
+export const secondaryCheckBoxColor = "#404040";
 const spanishFont = "Merienda_700Bold";
 const defaultFont = "Montserrat_400Regular";
 const defaultItalicFont = "Montserrat_400Regular_Italic";
@@ -34,7 +35,12 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     flexDirection: "row",
-    // borderWidth: 1,
+  },
+
+  settingsPageContainer: {
+    flex: 1,
+    alignItems: "center",
+    backgroundColor: backgroundColor,
   },
 
   // Title:
@@ -143,6 +149,11 @@ export const styles = StyleSheet.create({
     marginBottom: 16,
   },
 
+  h2Text: {
+    fontFamily: defaultBoldFont,
+    fontSize: 20,
+  },
+
   defaultText: {
     fontFamily: defaultFont,
   },
@@ -180,6 +191,23 @@ export const styles = StyleSheet.create({
     paddingLeft: 10,
   },
 
+  settingsCategoryText: {
+    width: "80%",
+    fontFamily: defaultBoldFont,
+    fontSize: 18,
+    marginTop: 20,
+  },
+
+  settingsMoodText: {
+    fontFamily: defaultBoldFont,
+    paddingLeft: 10,
+  },
+
+  settingsTenseText: {
+    fontFamily: defaultFont,
+    paddingLeft: 10,
+  },
+
   // Profile picture with background:
   profilePictureContainer: {
     width: 240,
@@ -202,6 +230,28 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: backgroundColor,
     ...shadowSettings,
+  },
+
+  // Settings:
+  moodSettingsContainer: {
+    width: "90%",
+  },
+
+  moodContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  moodCheckBox: {
+    width: "80%",
+    backgroundColor: "transparent",
+    borderWidth: 0,
+  },
+
+  tenseCheckBox: {
+    paddingLeft: "15%",
+    backgroundColor: "transparent",
+    borderWidth: 0,
   },
 
   // Old stuff:
@@ -236,7 +286,6 @@ export const styles = StyleSheet.create({
   // Login:
   loginH3: {
     marginBottom: 50,
-    // borderWidth: 1,
     borderColor: "grey",
     width: "80%",
     textAlign: "center",
@@ -288,57 +337,5 @@ export const styles = StyleSheet.create({
     marginTop: 15,
     width: 80,
     alignSelf: "flex-end",
-  },
-
-  // Settings:
-
-  settingsScreenContainer: {
-    flex: 1,
-  },
-
-  settingsHeader: {
-    paddingTop: StatusBar.currentHeight + 10,
-    paddingHorizontal: 30,
-    marginBottom: 10,
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "100%",
-    flexDirection: "row",
-    // borderWidth: 1,
-  },
-
-  settingsCategory: {
-    width: "100%",
-    paddingLeft: "10%",
-    fontWeight: "bold",
-    fontSize: 18,
-    marginTop: 20,
-  },
-
-  settingContainer: {
-    alignItems: "center",
-  },
-
-  moodSettingsContainer: {
-    width: "90%",
-  },
-
-  moodContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-
-  moodCheckBox: {
-    width: "80%",
-    backgroundColor: "transparent",
-    borderWidth: 0,
-  },
-
-  subSettingContainer: {},
-
-  tenseCheckBox: {
-    paddingLeft: "15%",
-    backgroundColor: "transparent",
-    borderWidth: 0,
   },
 });

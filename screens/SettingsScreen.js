@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 import { CheckBox, Text } from "react-native-elements";
 import MoodSelector from "../components/MoodSelector";
 import MoodAndTenseTypes from "../configurations/MoodAndTenseTypes";
-import { styles } from "../Styles";
-import { AntDesign, FontAwesome5, Ionicons } from "@expo/vector-icons";
+import { styles, primaryColor } from "../Styles";
+import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { setSettings } from "../actions/user";
 import { connect } from "react-redux";
 import { db } from "../firebase";
@@ -27,19 +27,19 @@ const SettingsScreen = ({ navigation, user, settings, setSettings }) => {
   };
 
   return (
-    <View style={styles.settingsScreenContainer}>
-      <View style={styles.settingsHeader}>
+    <View style={{ flex: 1 }}>
+      <View style={styles.pageHeader}>
         <TouchableOpacity onPress={() => navigation.replace("Home")}>
           <Ionicons name="chevron-back" size={24} color="black" />
         </TouchableOpacity>
-        <Text h3>Settings</Text>
+        <Text style={styles.h2Text}>Settings</Text>
         <TouchableOpacity onPress={saveSettings}>
-          <FontAwesome5 name="save" size={30} color="black" />
+          <FontAwesome5 name="save" size={28} color="black" />
         </TouchableOpacity>
       </View>
 
-      <ScrollView contentContainerStyle={styles.settingContainer}>
-        <Text style={styles.settingsCategory}>Moods and Tenses</Text>
+      <ScrollView contentContainerStyle={styles.settingsPageContainer}>
+        <Text style={styles.settingsCategoryText}>Moods and Tenses</Text>
         {Object.keys(MoodAndTenseTypes).map((mood) => (
           <MoodSelector
             key={mood}
@@ -49,19 +49,22 @@ const SettingsScreen = ({ navigation, user, settings, setSettings }) => {
             setSettings={setNewSettings}
           />
         ))}
-        <Text style={styles.settingsCategory}>Other</Text>
+        <Text style={styles.settingsCategoryText}>Other</Text>
         <View style={styles.moodSettingsContainer}>
           <CheckBox
             containerStyle={styles.moodCheckBox}
-            title={"él/ella/Usted in any case"}
+            // title={"él/ella/Usted in any case"}
+            title={<Text style={styles.settingsMoodText}>él/ella/Usted in any case</Text>}
             checked={newSettings.elEllaUsted}
             onPress={elEllaUstedChecker}
+            checkedColor={primaryColor}
           />
           <CheckBox
             containerStyle={styles.moodCheckBox}
-            title={"Only with English translation"}
+            title={<Text style={styles.settingsMoodText}>Only with English translation</Text>}
             checked={newSettings.onlyEnglish}
             onPress={onlyEnglishChecker}
+            checkedColor={primaryColor}
           />
         </View>
       </ScrollView>

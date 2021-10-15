@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { View, TouchableOpacity } from "react-native";
-import { CheckBox } from "react-native-elements";
+import { CheckBox,Text } from "react-native-elements";
 import { AntDesign } from "@expo/vector-icons";
-import { styles } from "../Styles";
+import { styles, primaryColor, secondaryCheckBoxColor } from "../Styles";
 
 const MoodSelector = ({ mood, settings, tenses, setSettings }) => {
   const [moodChecked, setMoodChecked] = useState(!Object.values(settings[mood]).every((item) => item === false));
@@ -37,7 +37,13 @@ const MoodSelector = ({ mood, settings, tenses, setSettings }) => {
   return (
     <View style={styles.moodSettingsContainer}>
       <View style={styles.moodContainer}>
-        <CheckBox containerStyle={styles.moodCheckBox} title={mood} checked={moodChecked} onPress={moodChecker} />
+        <CheckBox
+          containerStyle={styles.moodCheckBox}
+          title={<Text style={styles.settingsMoodText}>{mood}</Text>}
+          checked={moodChecked}
+          onPress={moodChecker}
+          checkedColor={primaryColor}
+        />
         <TouchableOpacity onPress={() => setShowTenses(!showTenses)}>
           {showTenses ? (
             <AntDesign name="upcircleo" size={24} color="black" />
@@ -46,16 +52,16 @@ const MoodSelector = ({ mood, settings, tenses, setSettings }) => {
           )}
         </TouchableOpacity>
       </View>
-      <View style={styles.subSettingContainer}>
+      <View>
         {showTenses &&
           tenses.map((tense) => (
             <CheckBox
               containerStyle={styles.tenseCheckBox}
               key={mood + tense}
-              title={tense}
+              title={<Text style={styles.settingsTenseText}>{tense}</Text>}
               checked={settings[mood][tense]}
               onPress={() => tenseChecker(tense)}
-              checkedColor="green"
+              checkedColor={secondaryCheckBoxColor}
             />
           ))}
       </View>

@@ -179,6 +179,16 @@ export const styles = StyleSheet.create({
     fontFamily: defaultItalicFont,
   },
 
+  defaultBoldTextCentered: {
+    fontFamily: defaultBoldFont,
+    textAlign: "center",
+  },
+
+  defaultItalicTextCentered: {
+    fontFamily: defaultItalicFont,
+    textAlign: "center",
+  },
+
   greedingText: {
     fontFamily: spanishFont,
     fontSize: 24,
@@ -190,6 +200,7 @@ export const styles = StyleSheet.create({
     fontFamily: defaultFont,
     marginTop: 40,
     marginBottom: 6,
+    textAlign: "center",
   },
 
   wordOfTheDaySpanish: {
@@ -245,8 +256,8 @@ export const styles = StyleSheet.create({
 
   // Word of the day:
   wordOfDayContainer: {
-    height: "40%",
     width: "90%",
+    paddingBottom: 10,
     borderRadius: 5,
     borderWidth: 0.5,
     borderColor: "grey",

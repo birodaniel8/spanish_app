@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 import { CheckBox, Text } from "react-native-elements";
 import MoodSelector from "../components/MoodSelector";
-import MoodAndTenseTypes from "../configurations/MoodAndTenseTypes";
+import { MoodAndTenseTypes } from "../configurations/MoodAndTenseTypes";
 import { styles, primaryColor } from "../Styles";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { setSettings } from "../actions/user";
@@ -23,7 +23,6 @@ const SettingsScreen = ({ navigation, user, settings, setSettings }) => {
   const saveSettings = () => {
     db.collection("users").doc(user.uid).set({ settings: newSettings });
     setSettings(newSettings);
-    console.log("settings saved");
   };
 
   return (

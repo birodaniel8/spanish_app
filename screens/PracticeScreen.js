@@ -11,7 +11,7 @@ import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 const PracticeScreen = ({ navigation, dictionary, wordCardList, setWordCardList }) => {
   const [selectedWordCard, setSelectedWordCard] = useState(<View></View>);
   const [count, setCount] = useState(0);
-  const totalWords = 1;
+  const totalWords = 10;
 
   useEffect(() => {
     // sample 10 random word cards and store them:

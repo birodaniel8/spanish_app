@@ -48,7 +48,6 @@ const HomeScreen = ({ navigation, user, settings, setUser, setSettings, loadDict
   }, [settings]);
 
   useEffect(() => {
-    console.log("-------------------------------------");
     var unsubscribe = db.collection("dictionary").where("verb", "==", wordOfTheDay);
     unsubscribe
       .where("mood", "==", "Indicative")
@@ -145,27 +144,29 @@ const HomeScreen = ({ navigation, user, settings, setUser, setSettings, loadDict
             title="Let's practice!"
           />
 
-          {Object.keys(wordOfTheDayDict).length == 4 ? (
-            <Text style={styles.wordOfTheDayHeader}>Word of the day:</Text>
-          ) : null}
-          {Object.keys(wordOfTheDayDict).length == 4 ? (
-            <View style={styles.wordOfDayContainer}>
-              <View style={{ alignItems: "center", marginTop: 10 }}>
-                <Image source={logo} style={{ height: 100, width: 200 }}></Image>
+          <View style={{ height: "45%" }}>
+            {Object.keys(wordOfTheDayDict).length == 4 ? (
+              <Text style={styles.wordOfTheDayHeader}>Word of the day:</Text>
+            ) : null}
+            {Object.keys(wordOfTheDayDict).length == 4 ? (
+              <View style={styles.wordOfDayContainer}>
+                <View style={{ alignItems: "center", marginTop: 10 }}>
+                  <Image source={logo} style={{ height: 100, width: 200 }}></Image>
+                </View>
+                <Text style={styles.wordOfTheDaySpanish}>{wordOfTheDay}</Text>
+                <Text style={styles.wordOfTheDayEnglish}>{wordOfTheDayDict.yoPresent.english.split(" ")[1]}</Text>
+                {["yoPresent", "tuPresent", "yoPreterite", "nosotrosProgressivePresent"].map((i) => (
+                  <Text key={i} style={styles.wordOfTheDayExamples}>
+                    {wordOfTheDayDict[i].pronoun +
+                      " " +
+                      wordOfTheDayDict[i].spanish +
+                      " - " +
+                      wordOfTheDayDict[i].english}{" "}
+                  </Text>
+                ))}
               </View>
-              <Text style={styles.wordOfTheDaySpanish}>{wordOfTheDay}</Text>
-              <Text style={styles.wordOfTheDayEnglish}>{wordOfTheDayDict.yoPresent.english.split(" ")[1]}</Text>
-              {["yoPresent", "tuPresent", "yoPreterite", "nosotrosProgressivePresent"].map((i) => (
-                <Text key={i} style={styles.wordOfTheDayExamples}>
-                  {wordOfTheDayDict[i].pronoun +
-                    " " +
-                    wordOfTheDayDict[i].spanish +
-                    " - " +
-                    wordOfTheDayDict[i].english}{" "}
-                </Text>
-              ))}
-            </View>
-          ) : null}
+            ) : null}
+          </View>
         </ScrollView>
       </View>
     );

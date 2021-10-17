@@ -5,13 +5,12 @@ import { connect } from "react-redux";
 import { styles, primaryFadedColor, secondaryColor, lightGreyColor } from "../Styles";
 import { removeCorrectWordCard, replaceWrongWordCard } from "../actions/cards";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
+import { moodMap, tenseMap, pronounMap } from "../configurations/MoodAndTenseTypes";
 
 const WordCard = ({ mood, tense, pronoun, word, wordDict, removeCorrectWordCard, replaceWrongWordCard }) => {
   const [text, setText] = useState("");
   const [buttonTitle, setButtonTitle] = useState("Submit");
   const [buttonStyle, setButtonStyle] = useState("submitCardButton");
-
-  // useEffect(() => setText(""), [word]);
 
   const buttonFunction = () => {
     if (buttonTitle === "Submit") {
@@ -22,7 +21,7 @@ const WordCard = ({ mood, tense, pronoun, word, wordDict, removeCorrectWordCard,
   };
 
   const checkIfCorrect = () => {
-    if (wordDict.spanish === text.toLowerCase()) {
+    if (wordDict.spanish === text.toLowerCase().trim()) {
       setButtonTitle("Correct");
       setButtonStyle("correctCardButton");
     } else {
@@ -52,24 +51,24 @@ const WordCard = ({ mood, tense, pronoun, word, wordDict, removeCorrectWordCard,
           <View style={{ ...styles.wordCardIcon, backgroundColor: primaryFadedColor }}>
             <MaterialIcons name="message" size={40} color="black" />
           </View>
-          <Text style={styles.defaultBoldText}>{mood}</Text>
-          <Text style={styles.defaultItalicText}>{mood}</Text>
+          <Text style={styles.defaultBoldTextCentered}>{mood}</Text>
+          <Text style={styles.defaultItalicTextCentered}>{moodMap[mood]}</Text>
         </View>
 
         <View style={styles.wordCardPropertyItemContainer}>
           <View style={{ ...styles.wordCardIcon, backgroundColor: lightGreyColor }}>
             <MaterialIcons name="access-time" size={40} color="black" />
           </View>
-          <Text style={styles.defaultBoldText}>{tense}</Text>
-          <Text style={styles.defaultItalicText}>{tense}</Text>
+          <Text style={styles.defaultBoldTextCentered}>{tense}</Text>
+          <Text style={styles.defaultItalicTextCentered}>{tenseMap[tense]}</Text>
         </View>
 
         <View style={styles.wordCardPropertyItemContainer}>
           <View style={{ ...styles.wordCardIcon, backgroundColor: secondaryColor }}>
             <FontAwesome name="user" size={40} color="black" />
           </View>
-          <Text style={styles.defaultBoldText}>{pronoun}</Text>
-          <Text style={styles.defaultItalicText}>{pronoun}</Text>
+          <Text style={styles.defaultBoldTextCentered}>{pronounMap[pronoun]}</Text>
+          <Text style={styles.defaultItalicTextCentered}>{pronoun}</Text>
         </View>
       </View>
       <Input

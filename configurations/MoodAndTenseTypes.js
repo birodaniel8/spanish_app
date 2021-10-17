@@ -1,10 +1,40 @@
-import dictionaryJSON from "../assets/dictionary.json";
+export const MoodAndTenseTypes = {
+  Indicative: ["Present", "Preterite", "Imperfect", "Conditional", "Future"],
+  Subjunctive: ["Present", "Imperfect", "Imperfect 2", "Future"],
+  Imperative: ["Affirmative", "Negative"],
+  Progressive: ["Present", "Preterite", "Imperfect", "Conditional", "Future"],
+  Perfect: ["Present", "Preterite", "Past", "Conditional", "Future"],
+  "Perfect Subjunctive": ["Present", "Past", "Future"],
+};
 
-const moodAndTenseTypesMap = new Map(Object.keys(dictionaryJSON).map((key) => {
-  const tenses = Object.keys(dictionaryJSON[key])
-  return [key, tenses];
-}));
+export const moodMap = {
+  Indicative: "Indicativo",
+  Subjunctive: "Subjuntivo",
+  Imperative: "Imperativo",
+  Progressive: "Progresivo",
+  Perfect: "Perfecto",
+  "Perfect Subjunctive": "Subjuntivo perfecto",
+};
 
-const MoodAndTenseTypes = Object.fromEntries(moodAndTenseTypesMap)
+export const tenseMap = {
+  Present: "Presente",
+  Preterite: "Pretérito",
+  Imperfect: "Imperfecto",
+  "Imperfect 2": "Imperfecto 2",
+  Conditional: "Condicional",
+  Future: "Futuro",
+  Affirmative: "Afirmativo",
+  Negative: "Negativo",
+  Past: "Pasado",
+};
 
-export default MoodAndTenseTypes;
+export const pronounMap = {
+  yo: "I",
+  tú: "you",
+  "él/ella/Ud.": "he/she/formal",
+  nosotros: "we",
+  vosotros: "you (plural)",
+  "ellos/ellas/Uds.": "they/formal (plural)",
+  "Ud.": "formal",
+  "Uds.": "formal (plural)",
+};

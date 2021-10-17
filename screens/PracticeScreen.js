@@ -5,11 +5,13 @@ import { Button, Text } from "react-native-elements";
 import { styles } from "../Styles";
 import WordCard from "../components/WordCard";
 import { setWordCardList } from "../actions/cards";
+import { TouchableOpacity } from "react-native";
+import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 
 const PracticeScreen = ({ navigation, dictionary, wordCardList, setWordCardList }) => {
   const [selectedWordCard, setSelectedWordCard] = useState(<View></View>);
   const [count, setCount] = useState(0);
-  const totalWords = 2;
+  const totalWords = 1;
 
   useEffect(() => {
     // sample 10 random word cards and store them:
@@ -46,10 +48,23 @@ const PracticeScreen = ({ navigation, dictionary, wordCardList, setWordCardList 
     return <WordCard mood={mood} tense={tense} pronoun={pronoun} word={word} wordDict={wordDict} />;
   };
 
+  var progress = (count / (totalWords+1)) * 100 + "%";
+
   return (
-    <View style={styles.container}>
-      <Text>{count + "/" + totalWords}</Text>
-      {selectedWordCard}
+    <View style={{ flex: 1 }}>
+      <View style={styles.pageHeader}>
+        <View style={styles.statusBarContainer}>
+          <View style={{ ...styles.statusBarProgress, width: progress }}></View>
+          <Text style={{ ...styles.defaultText, position: "absolute", width: "98%", textAlign: "right" }}>
+            {count + "/" + totalWords}
+          </Text>
+        </View>
+
+        <TouchableOpacity onPress={() => navigation.replace("Home")}>
+          <AntDesign name="close" size={24} color="black" />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.pageContainer}>{selectedWordCard}</View>
     </View>
   );
 };

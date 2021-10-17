@@ -5,8 +5,10 @@ const inputBorderColor = "#C0C0C0";
 const inputbackgroundColor = "#FFFFFF";
 const shadowColor = "#000000";
 export const primaryColor = "#C7031B";
-const secondaryColor = "#FDC605";
+export const primaryFadedColor = "#D66C6C";
+export const secondaryColor = "#FDC605";
 export const secondaryCheckBoxColor = "#404040";
+export const lightGreyColor = "#C4C4C4";
 const spanishFont = "Merienda_700Bold";
 const defaultFont = "Montserrat_400Regular";
 const defaultItalicFont = "Montserrat_400Regular_Italic";
@@ -110,7 +112,7 @@ export const styles = StyleSheet.create({
     fontFamily: defaultBoldFont,
   },
 
-  // Primary:
+  // Secondary:
   secondaryButtonContainer: {
     width: "50%",
     borderRadius: 5,
@@ -124,6 +126,17 @@ export const styles = StyleSheet.create({
   secondaryButtonText: {
     fontFamily: defaultBoldFont,
     color: "black",
+  },
+
+  // Practice button:
+  practiceButtonContainer: {
+    width: "94%",
+    borderRadius: 5,
+    ...shadowSettings,
+  },
+
+  practiceButtonText: {
+    fontFamily: defaultBoldFont,
   },
 
   // Transparent:
@@ -156,6 +169,14 @@ export const styles = StyleSheet.create({
 
   defaultText: {
     fontFamily: defaultFont,
+  },
+
+  defaultBoldText: {
+    fontFamily: defaultBoldFont,
+  },
+
+  defaultItalicText: {
+    fontFamily: defaultItalicFont,
   },
 
   greedingText: {
@@ -227,7 +248,8 @@ export const styles = StyleSheet.create({
     height: "40%",
     width: "90%",
     borderRadius: 5,
-    borderWidth: 1,
+    borderWidth: 0.5,
+    borderColor: "grey",
     backgroundColor: backgroundColor,
     ...shadowSettings,
   },
@@ -254,25 +276,22 @@ export const styles = StyleSheet.create({
     borderWidth: 0,
   },
 
-  // Old stuff:
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "rgba(255,255,255,0.8)",
+  // Practice:
+
+  statusBarContainer: {
+    width: "85%",
+    height: 20,
+    backgroundColor: lightGreyColor,
+    borderRadius: 100,
+  },
+  statusBarProgress: {
+    height: 20,
+    borderRadius: 100,
+    backgroundColor: primaryFadedColor,
   },
 
-  buttonContainer: {
-    width: "75%",
-    marginTop: 10,
-  },
-
-  pickImageButton: {
-    backgroundColor: "tomato",
-  },
-
-  checkCardButton: {
-    backgroundColor: "blue",
+  submitCardButton: {
+    backgroundColor: primaryColor,
   },
 
   correctCardButton: {
@@ -283,59 +302,41 @@ export const styles = StyleSheet.create({
     backgroundColor: "red",
   },
 
-  // Login:
-  loginH3: {
-    marginBottom: 50,
-    borderColor: "grey",
-    width: "80%",
-    textAlign: "center",
-    borderTopLeftRadius: 25,
-    borderBottomRightRadius: 25,
-    backgroundColor: "firebrick",
-    padding: 5,
-    color: "white",
-  },
-
-  // WordCard styles:
+  // WordCard:
   wordCardContainer: {
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    width: "70%",
-    height: 200,
-    borderWidth: 1,
-    borderColor: "grey",
-    borderStyle: "solid",
-    borderRadius: 5,
-    margin: 15,
+    width: "90%",
   },
 
-  englishText: {
+  wordCardPropertyContainer: {
+    marginBottom: 25,
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "90%",
+    flexDirection: "row",
+  },
+
+  wordCardPropertyItemContainer: {
+    alignItems: "center",
+    width: "30%",
+    height: 150,
+  },
+
+  wordCardIcon: {
+    width: 80,
+    height: 80,
+    borderRadius: 1000,
+    alignItems: "center",
+    justifyContent: "center",
     marginBottom: 10,
   },
 
-  moodText: {
-    fontWeight: "bold",
-  },
-
-  wordInputContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "70%",
-    marginBottom: -10,
-  },
-
-  pronounText: {
-    fontStyle: "italic",
-    maxWidth: "30%",
-    alignSelf: "center",
-  },
-
-  spanishInput: {
-    width: "70%",
-    marginTop: 15,
-    width: 80,
-    alignSelf: "flex-end",
+  wordCardSolidLine: {
+    width: "40%",
+    borderWidth: 0.5,
+    borderColor: "#C0C0C0",
+    borderStyle: "solid",
+    marginBottom: 20,
   },
 });

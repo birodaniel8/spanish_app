@@ -71,7 +71,6 @@ const WordCard = ({ mood, tense, pronoun, word, wordDict, removeCorrectWordCard,
           <Text style={styles.defaultBoldText}>{pronoun}</Text>
           <Text style={styles.defaultItalicText}>{pronoun}</Text>
         </View>
-
       </View>
       <Input
         autoFocus

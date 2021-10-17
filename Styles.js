@@ -284,10 +284,18 @@ export const styles = StyleSheet.create({
     backgroundColor: lightGreyColor,
     borderRadius: 100,
   },
+
   statusBarProgress: {
     height: 20,
     borderRadius: 100,
     backgroundColor: primaryFadedColor,
+  },
+
+  statusBarProgressNumbers: {
+    fontFamily: defaultFont,
+    position: "absolute",
+    width: "98%",
+    textAlign: "right",
   },
 
   submitCardButton: {
@@ -299,7 +307,7 @@ export const styles = StyleSheet.create({
   },
 
   wrongCardButton: {
-    backgroundColor: "red",
+    backgroundColor: "black",
   },
 
   // WordCard:

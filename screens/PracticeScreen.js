@@ -55,7 +55,7 @@ const PracticeScreen = ({ navigation, dictionary, wordCardList, setWordCardList 
       <View style={styles.pageHeader}>
         <View style={styles.statusBarContainer}>
           <View style={{ ...styles.statusBarProgress, width: progress }}></View>
-          <Text style={{ ...styles.defaultText, position: "absolute", width: "98%", textAlign: "right" }}>
+          <Text style={styles.statusBarProgressNumbers}>
             {count + "/" + totalWords}
           </Text>
         </View>

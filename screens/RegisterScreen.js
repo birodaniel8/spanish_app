@@ -4,7 +4,7 @@ import { Avatar, Button, Input, Text } from "react-native-elements";
 import { styles } from "../Styles";
 import { auth, db, storage } from "../firebase";
 import * as ImagePicker from "expo-image-picker";
-import MoodAndTenseTypes from "../configurations/MoodAndTenseTypes";
+import { MoodAndTenseTypes } from "../configurations/MoodAndTenseTypes";
 import { connect } from "react-redux";
 import { setUser, setSettings } from "../actions/user";
 import DefaultPhotoUrl from "../configurations/DefaultPhotoUrl";
@@ -35,16 +35,9 @@ const RegisterScreen = ({ navigation, setUser, setSettings }) => {
         // upload an image too:
         await uploadImage(authUser);
         // add the base settings to the database:
-        await db
-          .collection("users")
-          .doc(authUser.user.uid)
-          .set({
-            settings: {
-              ...defaultMoodSettings,
-              elEllaUsted: false,
-              onlyEnglish: true,
-            },
-          });
+        await db.collection("users").doc(authUser.user.uid).set({
+          settings: defaultMoodSettings,
+        });
         // add to states:
         setUser(authUser.user);
         setSettings(defaultMoodSettings);

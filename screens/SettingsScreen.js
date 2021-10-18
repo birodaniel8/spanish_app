@@ -12,13 +12,13 @@ import { db } from "../firebase";
 const SettingsScreen = ({ navigation, user, settings, setSettings }) => {
   const [newSettings, setNewSettings] = useState(settings);
 
-  // update the other settings:
-  const elEllaUstedChecker = () => {
-    setNewSettings({ ...newSettings, elEllaUsted: !newSettings.elEllaUsted });
-  };
-  const onlyEnglishChecker = () => {
-    setNewSettings({ ...newSettings, onlyEnglish: !newSettings.onlyEnglish });
-  };
+  // // update the other settings:
+  // const elEllaUstedChecker = () => {
+  //   setNewSettings({ ...newSettings, elEllaUsted: !newSettings.elEllaUsted });
+  // };
+  // const onlyEnglishChecker = () => {
+  //   setNewSettings({ ...newSettings, onlyEnglish: !newSettings.onlyEnglish });
+  // };
 
   const saveSettings = () => {
     db.collection("users").doc(user.uid).set({ settings: newSettings });
@@ -48,7 +48,7 @@ const SettingsScreen = ({ navigation, user, settings, setSettings }) => {
             setSettings={setNewSettings}
           />
         ))}
-        <Text style={styles.settingsCategoryText}>Other</Text>
+        {/* <Text style={styles.settingsCategoryText}>Other</Text>
         <View style={styles.moodSettingsContainer}>
           <CheckBox
             containerStyle={styles.moodCheckBox}
@@ -65,7 +65,7 @@ const SettingsScreen = ({ navigation, user, settings, setSettings }) => {
             onPress={onlyEnglishChecker}
             checkedColor={primaryColor}
           />
-        </View>
+        </View> */}
       </ScrollView>
     </View>
   );

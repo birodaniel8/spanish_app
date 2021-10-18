@@ -14,7 +14,7 @@ import logo from "../assets/logo.png";
 const HomeScreen = ({ navigation, user, settings, setUser, setSettings, loadDictionary }) => {
   const [wordOfTheDayDict, setWordOfTheDayDict] = useState({});
 
-  var wordOfTheDay = "venir";
+  var wordOfTheDay = "creer";
 
   // Sign Out:
   const signOutUser = () => {

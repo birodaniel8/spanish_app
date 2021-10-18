@@ -1,6 +1,6 @@
 export const MoodAndTenseTypes = {
   Indicative: ["Present", "Preterite", "Imperfect", "Conditional", "Future"],
-  Subjunctive: ["Present", "Imperfect", "Imperfect 2", "Future"],
+  Subjunctive: ["Present", "Imperfect", "Future"],
   Imperative: ["Affirmative", "Negative"],
   Progressive: ["Present", "Preterite", "Imperfect", "Conditional", "Future"],
   Perfect: ["Present", "Preterite", "Past", "Conditional", "Future"],
@@ -20,7 +20,6 @@ export const tenseMap = {
   Present: "Presente",
   Preterite: "Pretérito",
   Imperfect: "Imperfecto",
-  "Imperfect 2": "Imperfecto 2",
   Conditional: "Condicional",
   Future: "Futuro",
   Affirmative: "Afirmativo",

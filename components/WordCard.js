@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import { Input, Text, Button } from "react-native-elements";
 import { connect } from "react-redux";
@@ -7,30 +7,44 @@ import { removeCorrectWordCard, replaceWrongWordCard } from "../actions/cards";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { moodMap, tenseMap, pronounMap } from "../configurations/MoodAndTenseTypes";
 
-const WordCard = ({ mood, tense, pronoun, word, wordDict, removeCorrectWordCard, replaceWrongWordCard }) => {
+const WordCard = ({
+  mood,
+  tense,
+  pronoun,
+  word,
+  in_english,
+  in_spanish,
+  removeCorrectWordCard,
+  replaceWrongWordCard,
+}) => {
   const [text, setText] = useState("");
   const [buttonTitle, setButtonTitle] = useState("Submit");
   const [buttonStyle, setButtonStyle] = useState("submitCardButton");
 
+  // Button pressed function:
   const buttonFunction = () => {
     if (buttonTitle === "Submit") {
+      // If its title is Submit, then we should check if the typed text is correct:
       checkIfCorrect();
     } else {
+      // If it is not Submit (we already checked) then move to the next card:
       nextCard();
     }
   };
 
+  // Check:
   const checkIfCorrect = () => {
-    if (wordDict.spanish === text.toLowerCase().trim()) {
+    if (in_spanish === text.toLowerCase().trim()) {
       setButtonTitle("Correct");
       setButtonStyle("correctCardButton");
     } else {
       setButtonTitle("Not Correct");
       setButtonStyle("wrongCardButton");
-      setText(wordDict.spanish);
+      setText(in_spanish);
     }
   };
 
+  // Move to next card:
   const nextCard = () => {
     setButtonTitle("Submit");
     setText("");
@@ -38,13 +52,14 @@ const WordCard = ({ mood, tense, pronoun, word, wordDict, removeCorrectWordCard,
     if (buttonTitle === "Correct") {
       removeCorrectWordCard();
     } else {
+      // If it was not correct, we move the card to the end of the deck:
       replaceWrongWordCard();
     }
   };
 
   return (
     <View style={styles.wordCardContainer}>
-      <Text style={{ ...styles.h1Text, marginBottom: 10 }}>{wordDict.english}</Text>
+      <Text style={{ ...styles.h1Text, marginBottom: 10 }}>{in_english}</Text>
       <View style={styles.wordCardSolidLine}></View>
       <View style={styles.wordCardPropertyContainer}>
         <View style={styles.wordCardPropertyItemContainer}>

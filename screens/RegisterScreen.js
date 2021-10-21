@@ -17,9 +17,13 @@ const RegisterScreen = ({ navigation, setUser, setSettings }) => {
 
   // mood and tense default settings:
   const defaultMoodSettings = Object.keys(MoodAndTenseTypes).reduce((settings, mood) => {
-    // set every tense setting in a mood to 'true':
-    const tenseSettings = MoodAndTenseTypes[mood].reduce((o, key) => ({ ...o, [key]: true }), {});
+    // set every tense setting in a mood to 'false':
+    const tenseSettings = MoodAndTenseTypes[mood].reduce((o, key) => ({ ...o, [key]: false }), {});
     settings[mood] = tenseSettings;
+    // except Indicative Present, Preterite, Future:
+    settings["Indicative"]["Present"] = true
+    settings["Indicative"]["Preterite"] = true
+    settings["Indicative"]["Future"] = true
     return settings;
   }, {});
 
@@ -29,7 +33,7 @@ const RegisterScreen = ({ navigation, setUser, setSettings }) => {
       .createUserWithEmailAndPassword(email, password)
       .then(async (authUser) => {
         await authUser.user.updateProfile({
-          displayName: name,
+          displayName: name.trim(),
           photoURL: DefaultPhotoUrl,
         });
         // upload an image too:
@@ -100,7 +104,7 @@ const RegisterScreen = ({ navigation, setUser, setSettings }) => {
         Pick a profile picture
       </Text>
       <View style={styles.inputContainer}>
-        <Text style={styles.inputFieldLabel}>Full name</Text>
+        <Text style={styles.inputFieldLabel}>Name</Text>
         <Input
           autoFocus
           type="text"

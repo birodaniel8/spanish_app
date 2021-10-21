@@ -26,7 +26,6 @@ verbs = ["ser", "estar", "tener", "hacer", "decir", "ir", "ver", "dar", "saber",
 non_imperative_verbs = ["ser", "estar", "tener", "hacer", "ver", "saber", "querer", "deber", "parecer", "conocer",
                         "tratar", "existir", "ocurrir", "entender", "conseguir", "necesitar", "comprender", "born", ]
 
-
 conjugation_list = []
 for verb in tqdm(verbs):
     try:
@@ -123,7 +122,7 @@ df.loc[
     (df["pronoun"] == "yo") &
     (df["tense"] != "Present"),
     "english"
-].apply(lambda x: np.NaN if pd.isna(x) else "he/she " + x[1:]).values
+].apply(lambda x: np.NaN if pd.isna(x) else "he/she " + x[2:]).values
 
 # progressive he/she (same as progressive yo but with 'he/she ...' at the beginning):
 df.loc[
@@ -306,10 +305,12 @@ df["english"] = df["english"].apply(lambda x: x.replace("i ", "I "))
 
 # create a word dictionary that can be of any depth:
 collections = infinidict()
+collections_to_firestore = infinidict()
 
 # add the verb to the dictionary:
 for row in df.values:
-    collections["__collections__"]["dictionary"][f"{row[0]}_{row[1]}_{row[2]}_{row[3]}"] = {
+    collections[row[0]][row[1]][row[2]][row[3]] = {"in_spanish": row[4], "in_english": row[5]}
+    collections_to_firestore["__collections__"]["dictionary"][f"{row[0]}_{row[1]}_{row[2]}_{row[3]}"] = {
         "mood": row[0],
         "tense": row[1],
         "pronoun": row[2],
@@ -320,9 +321,13 @@ for row in df.values:
 
 # convert the defaultdict to normal dict:
 collections = json.loads(json.dumps(collections))
+collections_to_firestore = json.loads(json.dumps(collections_to_firestore))
 
 # save to json files:
 with open(f'_database_export_import/wordDictionary.json', 'w') as outfile:
+    ujson.dump(collections_to_firestore, outfile)
+
+with open(f'assets/dictionary.json', 'w') as outfile:
     ujson.dump(collections, outfile)
 
 # run: firestore-import -a _database_export_import/spanishAppApiKey.json -b _database_export_import/wordDictionary.json

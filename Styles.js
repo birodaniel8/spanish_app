@@ -256,7 +256,7 @@ export const styles = StyleSheet.create({
 
   // Word of the day:
   wordOfDayContainer: {
-    width: "90%",
+    width: "100%",
     paddingBottom: 10,
     borderRadius: 5,
     borderWidth: 0.5,

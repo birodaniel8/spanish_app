@@ -37,3 +37,10 @@ export const pronounMap = {
   "Ud.": "formal",
   "Uds.": "formal (plural)",
 };
+
+export const wordOfTheDayExamples = [
+  { mood: "Indicative", tense: "Present", pronoun: "yo" },
+  { mood: "Indicative", tense: "Present", pronoun: "tú" },
+  { mood: "Indicative", tense: "Preterite", pronoun: "él/ella/Ud." },
+  { mood: "Progressive", tense: "Present", pronoun: "nosotros" },
+];

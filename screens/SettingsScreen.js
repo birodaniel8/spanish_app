@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
-import { CheckBox, Text } from "react-native-elements";
+import { Text } from "react-native-elements";
 import MoodSelector from "../components/MoodSelector";
 import { MoodAndTenseTypes } from "../configurations/MoodAndTenseTypes";
-import { styles, primaryColor } from "../Styles";
+import { styles } from "../Styles";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { setSettings } from "../actions/user";
 import { connect } from "react-redux";
@@ -11,15 +11,6 @@ import { db } from "../firebase";
 
 const SettingsScreen = ({ navigation, user, settings, setSettings }) => {
   const [newSettings, setNewSettings] = useState(settings);
-
-  // // update the other settings:
-  // const elEllaUstedChecker = () => {
-  //   setNewSettings({ ...newSettings, elEllaUsted: !newSettings.elEllaUsted });
-  // };
-  // const onlyEnglishChecker = () => {
-  //   setNewSettings({ ...newSettings, onlyEnglish: !newSettings.onlyEnglish });
-  // };
-
   const saveSettings = () => {
     db.collection("users").doc(user.uid).set({ settings: newSettings });
     setSettings(newSettings);
@@ -48,24 +39,6 @@ const SettingsScreen = ({ navigation, user, settings, setSettings }) => {
             setSettings={setNewSettings}
           />
         ))}
-        {/* <Text style={styles.settingsCategoryText}>Other</Text>
-        <View style={styles.moodSettingsContainer}>
-          <CheckBox
-            containerStyle={styles.moodCheckBox}
-            // title={"él/ella/Usted in any case"}
-            title={<Text style={styles.settingsMoodText}>él/ella/Usted in any case</Text>}
-            checked={newSettings.elEllaUsted}
-            onPress={elEllaUstedChecker}
-            checkedColor={primaryColor}
-          />
-          <CheckBox
-            containerStyle={styles.moodCheckBox}
-            title={<Text style={styles.settingsMoodText}>Only with English translation</Text>}
-            checked={newSettings.onlyEnglish}
-            onPress={onlyEnglishChecker}
-            checkedColor={primaryColor}
-          />
-        </View> */}
       </ScrollView>
     </View>
   );

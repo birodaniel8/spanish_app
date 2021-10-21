@@ -15,3 +15,5 @@ web-build/
 
 # api key
 spanishAppApiKey.json
+
+firebase.js

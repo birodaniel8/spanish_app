@@ -155,7 +155,6 @@ export const styles = StyleSheet.create({
   },
 
   // Text types:
-
   h1Text: {
     fontFamily: defaultBoldFont,
     fontSize: 24,
@@ -288,7 +287,6 @@ export const styles = StyleSheet.create({
   },
 
   // Practice:
-
   statusBarContainer: {
     width: "85%",
     height: 20,

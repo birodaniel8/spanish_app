@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import { View } from "react-native";
 import { Avatar, Button, Input, Text } from "react-native-elements";
+import * as ImagePicker from "expo-image-picker";
+
+import { setUser, setSettings } from "../actions/user";
+
 import { styles } from "../Styles";
 import { auth, db, storage } from "../firebase";
-import * as ImagePicker from "expo-image-picker";
 import { MoodAndTenseTypes } from "../configurations/MoodAndTenseTypes";
-import { connect } from "react-redux";
-import { setUser, setSettings } from "../actions/user";
 import DefaultPhotoUrl from "../configurations/DefaultPhotoUrl";
 
 const RegisterScreen = ({ navigation, setUser, setSettings }) => {
@@ -21,9 +23,9 @@ const RegisterScreen = ({ navigation, setUser, setSettings }) => {
     const tenseSettings = MoodAndTenseTypes[mood].reduce((o, key) => ({ ...o, [key]: false }), {});
     settings[mood] = tenseSettings;
     // except Indicative Present, Preterite, Future:
-    settings["Indicative"]["Present"] = true
-    settings["Indicative"]["Preterite"] = true
-    settings["Indicative"]["Future"] = true
+    settings["Indicative"]["Present"] = true;
+    settings["Indicative"]["Preterite"] = true;
+    settings["Indicative"]["Future"] = true;
     return settings;
   }, {});
 

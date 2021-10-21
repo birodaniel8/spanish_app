@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
 import { View, Image } from "react-native";
 import { Text, Button, Input } from "react-native-elements";
+
+import { setUser, setSettings } from "../actions/user";
+
 import { auth, db } from "../firebase";
 import { styles } from "../Styles";
-import { connect } from "react-redux";
-import { setUser, setSettings } from "../actions/user";
 import logo from "../assets/logo.png";
 
 const LoginScreen = ({ navigation, setUser, setSettings }) => {

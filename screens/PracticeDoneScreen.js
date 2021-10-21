@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Image } from "react-native";
 import { Button, Text } from "react-native-elements";
+
 import { styles } from "../Styles";
 import confetti from "../assets/confetti.png";
 

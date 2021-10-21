@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Image, View, ScrollView } from "react-native";
+import { Image, View, ScrollView, TouchableOpacity } from "react-native";
 import { Avatar, Button, Text } from "react-native-elements";
+import { AntDesign, MaterialIcons } from "@expo/vector-icons";
+
+import { setUser, setSettings } from "../actions/user";
+import { loadDictionary } from "../actions/dictionary";
+
 import { styles } from "../Styles";
 import { auth } from "../firebase";
-import { loadDictionary } from "../actions/dictionary";
-import dictionaryJSON from "../assets/dictionary.json";
-import { AntDesign, MaterialIcons } from "@expo/vector-icons";
-import { TouchableOpacity } from "react-native";
-import { setUser, setSettings } from "../actions/user";
-import logo from "../assets/logo.png";
 import { wordOfTheDayExamples } from "../configurations/MoodAndTenseTypes";
+import dictionaryJSON from "../assets/dictionary.json";
+import logo from "../assets/logo.png";
 
 const HomeScreen = ({ navigation, user, settings, setUser, setSettings, loadDictionary }) => {
   const [wordOfTheDayList, setWordOfTheDayList] = useState();
-
   var wordOfTheDay = "creer";
 
   // Sign Out:
@@ -92,8 +92,8 @@ const HomeScreen = ({ navigation, user, settings, setUser, setSettings, loadDict
           />
 
           <View style={{ height: "45%", width: "90%" }}>
-            {wordOfTheDayList? <Text style={styles.wordOfTheDayHeader}>Word of the day:</Text> : null}
-            {wordOfTheDayList? (
+            {wordOfTheDayList ? <Text style={styles.wordOfTheDayHeader}>Word of the day:</Text> : null}
+            {wordOfTheDayList ? (
               <View style={styles.wordOfDayContainer}>
                 <View style={{ alignItems: "center", marginTop: 10 }}>
                   <Image source={logo} style={{ height: 100, width: 200 }}></Image>

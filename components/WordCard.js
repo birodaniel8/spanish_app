@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import { View } from "react-native";
 import { Input, Text, Button } from "react-native-elements";
-import { connect } from "react-redux";
-import { styles, primaryFadedColor, secondaryColor, lightGreyColor } from "../Styles";
-import { removeCorrectWordCard, replaceWrongWordCard } from "../actions/cards";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
+
+import { removeCorrectWordCard, replaceWrongWordCard } from "../actions/cards";
+
+import { styles, primaryFadedColor, secondaryColor, lightGreyColor } from "../Styles";
 import { moodMap, tenseMap, pronounMap } from "../configurations/MoodAndTenseTypes";
 
 const WordCard = ({

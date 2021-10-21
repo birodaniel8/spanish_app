@@ -1,13 +1,15 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 import { Text } from "react-native-elements";
-import MoodSelector from "../components/MoodSelector";
-import { MoodAndTenseTypes } from "../configurations/MoodAndTenseTypes";
-import { styles } from "../Styles";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
+
 import { setSettings } from "../actions/user";
-import { connect } from "react-redux";
+
+import { styles } from "../Styles";
 import { db } from "../firebase";
+import { MoodAndTenseTypes } from "../configurations/MoodAndTenseTypes";
+import MoodSelector from "../components/MoodSelector";
 
 const SettingsScreen = ({ navigation, user, settings, setSettings }) => {
   const [newSettings, setNewSettings] = useState(settings);

@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { View } from "react-native";
 import { Text } from "react-native-elements";
-import { styles } from "../Styles";
-import WordCard from "../components/WordCard";
+
 import { setWordCardList } from "../actions/cards";
+
+import { styles } from "../Styles";
 import { TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import WordCard from "../components/WordCard";
 
 const PracticeScreen = ({ navigation, dictionary, wordCardList, setWordCardList }) => {
   const [selectedWordCard, setSelectedWordCard] = useState(
@@ -16,6 +18,7 @@ const PracticeScreen = ({ navigation, dictionary, wordCardList, setWordCardList 
   );
   const [count, setCount] = useState(0);
   const totalWords = 10;
+  var progress = (count / (totalWords + 1)) * 100 + "%";
 
   useEffect(() => {
     // sample random word cards and store them:
@@ -63,8 +66,6 @@ const PracticeScreen = ({ navigation, dictionary, wordCardList, setWordCardList 
       />
     );
   };
-
-  var progress = (count / (totalWords + 1)) * 100 + "%";
 
   return (
     <View style={{ flex: 1 }}>

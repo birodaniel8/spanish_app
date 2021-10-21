@@ -10,12 +10,17 @@ import { loadDictionary } from "../actions/dictionary";
 import { styles } from "../Styles";
 import { auth } from "../firebase";
 import { wordOfTheDayExamples } from "../configurations/MoodAndTenseTypes";
+import WordOfTheDayIcons from "../configurations/WordOfTheDayIcons";
 import dictionaryJSON from "../assets/dictionary.json";
 import logo from "../assets/logo.png";
 
+// calculate day of the year:
+const dayOfYear = (date) => Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+
 const HomeScreen = ({ navigation, user, settings, setUser, setSettings, loadDictionary }) => {
   const [wordOfTheDayList, setWordOfTheDayList] = useState();
-  var wordOfTheDay = "creer";
+  // word of the day is tied to the given day of the year (different every day in a cycle):
+  var wordOfTheDay = Object.keys(WordOfTheDayIcons)[dayOfYear(new Date()) % Object.keys(WordOfTheDayIcons).length];
 
   // Sign Out:
   const signOutUser = () => {
@@ -96,7 +101,7 @@ const HomeScreen = ({ navigation, user, settings, setUser, setSettings, loadDict
             {wordOfTheDayList ? (
               <View style={styles.wordOfDayContainer}>
                 <View style={{ alignItems: "center", marginTop: 10 }}>
-                  <Image source={logo} style={{ height: 100, width: 200 }}></Image>
+                  <Image source={{ uri: WordOfTheDayIcons[wordOfTheDay] }} style={{ height: 100, width: 100 }}></Image>
                 </View>
                 <Text style={styles.wordOfTheDaySpanish}>{wordOfTheDay}</Text>
                 <Text style={styles.wordOfTheDayEnglish}>{wordOfTheDayList[0].in_english.split(" ")[1]}</Text>

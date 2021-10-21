@@ -42,7 +42,7 @@ const LoginScreen = ({ navigation, setUser, setSettings }) => {
       <View style={styles.titleContainer}>
         <Image source={logo} style={styles.logoImage}></Image>
         <Text style={styles.conjugacionTitle}>Conjugación</Text>
-        <Text style={styles.practicerTitle}>Practicer</Text>
+        <Text style={styles.practicerTitle}>Trainer</Text>
       </View>
 
       <View style={styles.inputContainer}>

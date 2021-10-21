@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { ScrollView, TouchableOpacity, View } from "react-native";
+import { ScrollView, TouchableOpacity, View, Alert } from "react-native";
 import { Text } from "react-native-elements";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 
@@ -14,8 +14,16 @@ import MoodSelector from "../components/MoodSelector";
 const SettingsScreen = ({ navigation, user, settings, setSettings }) => {
   const [newSettings, setNewSettings] = useState(settings);
   const saveSettings = () => {
-    db.collection("users").doc(user.uid).set({ settings: newSettings });
-    setSettings(newSettings);
+    // check if any of the boxes are selected
+    const validSetting = Object.values(newSettings)
+      .map((mood) => Object.values(mood).some((tense) => tense === true))
+      .some((mood) => mood === true);
+    if (validSetting) {
+      db.collection("users").doc(user.uid).set({ settings: newSettings });
+      setSettings(newSettings);
+    } else {
+      Alert.alert("Error", "Select at least one mood or tense!");
+    }
   };
 
   return (

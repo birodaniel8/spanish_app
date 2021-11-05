@@ -29,7 +29,7 @@ const PracticeScreen = ({
     </View>
   );
   const [count, setCount] = useState(0);
-  const totalWords = 2;
+  const totalWords = 10;
   var progress = (count / (totalWords + 1)) * 100 + "%";
 
   Date.prototype.addHours = function (h) {

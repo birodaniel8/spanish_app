@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { ScrollView, TouchableOpacity, View, Alert } from "react-native";
 import { Text, Input } from "react-native-elements";
-import { FontAwesome5, Ionicons, AntDesign } from "@expo/vector-icons";
+import { FontAwesome5, Ionicons, AntDesign, MaterialIcons } from "@expo/vector-icons";
 
 import { setSettings, setUser } from "../actions/user";
 
@@ -120,14 +120,14 @@ const SettingsScreen = ({ navigation, user, settings, setSettings, setUser }) =>
         <View style={styles.profileSettingsItem}>
           <Text style={styles.defaultBoldText}>Select new profile picture</Text>
           <TouchableOpacity onPress={() => Alert.alert("OK")}>
-            <AntDesign name="picture" size={24} color="black" />
+            <MaterialIcons name="add-photo-alternate" size={24} color="black" />
           </TouchableOpacity>
         </View>
 
         <View style={styles.profileSettingsItem}>
           <Text style={styles.defaultBoldText}>Change password</Text>
           <TouchableOpacity onPress={() => setShowNewPasswordField(!showNewPasswordField)}>
-            <FontAwesome5 name="key" size={24} color="black" />
+            <AntDesign name="edit" size={24} color="black" />
           </TouchableOpacity>
         </View>
         {showNewPasswordField && (

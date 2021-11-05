@@ -302,6 +302,13 @@ export const styles = StyleSheet.create({
     marginTop: 10,
   },
 
+  profileSettingsItemOpened: {
+    flex: 1,
+    flexDirection: "row",
+    width: "77%",
+    alignItems: "center",
+  },
+
   profileSettingsInputField: {
     marginBottom: -25,
     marginLeft: 0,
@@ -311,7 +318,6 @@ export const styles = StyleSheet.create({
     borderColor: inputBorderColor,
     backgroundColor: inputbackgroundColor,
     ...shadowSettings,
-    // height: 40
   },
 
   // Practice:

@@ -7,6 +7,7 @@ import { FontAwesome5, Ionicons, AntDesign } from "@expo/vector-icons";
 import { setSettings, setUser } from "../actions/user";
 
 import { styles, primaryColor } from "../Styles";
+import firebase from "firebase/app";
 import { auth, db } from "../firebase";
 import { MoodAndTenseTypes } from "../configurations/MoodAndTenseTypes";
 import MoodSelector from "../components/MoodSelector";
@@ -32,27 +33,39 @@ const SettingsScreen = ({ navigation, user, settings, setSettings, setUser }) =>
     }
   };
 
+  // update user's displayName
   const updateName = async () => {
-    await auth.currentUser.updateProfile({ displayName: newName });
-    setUser(auth.currentUser);
-    setShowNewNameField(false);
-    Alert.alert("Done", `Your name has been updated to ${newName}!`);
+    if (newName.length > 0) {
+      await auth.currentUser.updateProfile({ displayName: newName.trim() });
+      setUser(auth.currentUser);
+      setShowNewNameField(false);
+      Alert.alert("Done", `Your name has been updated to ${newName.trim()}!`);
+    } else {
+      Alert.alert("Error", `Your name should be at least one character long!`);
+    }
   };
 
-  // something is wrong here!!!!
+  // reauthenticate user with email and password
   const reauthenticate = (currentPassword) => {
     const user = auth.currentUser;
-    const cred = auth.EmailAuthProvider.credential(user.email, currentPassword);
+    const cred = firebase.auth.EmailAuthProvider.credential(user.email, currentPassword);
     return user.reauthenticateWithCredential(cred);
   };
 
+  // change user's password
   const changePassword = async (oldPassword, newPassword) => {
-    const user = auth.currentUser;
-    try {
-      await reauthenticate(oldPassword);
-      await user.updatePassword(newPassword);
-    } catch (err) {
-      console.log(err);
+    if (newPassword.length >= 6) {
+      const user = auth.currentUser;
+      try {
+        await reauthenticate(oldPassword);
+        await user.updatePassword(newPassword);
+        setShowNewPasswordField(false);
+        Alert.alert("Done", `Your password has been changed!`);
+      } catch (err) {
+        Alert.alert("Error", `Your password doesn't match the current password you entered!`);
+      }
+    } else {
+      Alert.alert("Error", `Password should be at least 6 characters!`);
     }
   };
 
@@ -79,7 +92,9 @@ const SettingsScreen = ({ navigation, user, settings, setSettings, setUser }) =>
             setSettings={setNewSettings}
           />
         ))}
+
         <Text style={styles.settingsCategoryText}>Profile</Text>
+
         <View style={styles.profileSettingsItem}>
           <Text style={styles.defaultBoldText}>{`Name: ${user.displayName}`}</Text>
           <TouchableOpacity onPress={() => setShowNewNameField(!showNewNameField)}>
@@ -87,7 +102,7 @@ const SettingsScreen = ({ navigation, user, settings, setSettings, setUser }) =>
           </TouchableOpacity>
         </View>
         {showNewNameField && (
-          <View style={{ flex: 1, flexDirection: "row", width: "77%", alignItems: "center" }}>
+          <View style={styles.profileSettingsItemOpened}>
             <Text>New name: </Text>
             <Input
               type="text"
@@ -101,12 +116,14 @@ const SettingsScreen = ({ navigation, user, settings, setSettings, setUser }) =>
             </TouchableOpacity>
           </View>
         )}
+
         <View style={styles.profileSettingsItem}>
           <Text style={styles.defaultBoldText}>Select new profile picture</Text>
           <TouchableOpacity onPress={() => Alert.alert("OK")}>
             <AntDesign name="picture" size={24} color="black" />
           </TouchableOpacity>
         </View>
+
         <View style={styles.profileSettingsItem}>
           <Text style={styles.defaultBoldText}>Change password</Text>
           <TouchableOpacity onPress={() => setShowNewPasswordField(!showNewPasswordField)}>
@@ -115,7 +132,7 @@ const SettingsScreen = ({ navigation, user, settings, setSettings, setUser }) =>
         </View>
         {showNewPasswordField && (
           <View style={{ flex: 1 }}>
-            <View style={{ flex: 1, flexDirection: "row", width: "77%", alignItems: "center" }}>
+            <View style={styles.profileSettingsItemOpened}>
               <Text>Current password: </Text>
               <Input
                 secureTextEntry
@@ -126,7 +143,7 @@ const SettingsScreen = ({ navigation, user, settings, setSettings, setUser }) =>
                 containerStyle={{ width: "52%", paddingLeft: 5 }}
               />
             </View>
-            <View style={{ flex: 1, flexDirection: "row", width: "77%", alignItems: "center" }}>
+            <View style={styles.profileSettingsItemOpened}>
               <Text>New password: </Text>
               <Input
                 secureTextEntry
@@ -134,9 +151,9 @@ const SettingsScreen = ({ navigation, user, settings, setSettings, setUser }) =>
                 value={newPassword}
                 onChangeText={(text) => setNewPassword(text)}
                 inputContainerStyle={styles.profileSettingsInputField}
-                containerStyle={{ width: "58%", paddingLeft: 5 }}
+                containerStyle={{ width: "52%", paddingLeft: 5, marginLeft: 18 }}
               />
-              <TouchableOpacity onPress={() => console.log(reauthenticate(password))}>
+              <TouchableOpacity onPress={() => changePassword(password, newPassword)}>
                 <Ionicons name="send" size={24} color={primaryColor} />
               </TouchableOpacity>
             </View>

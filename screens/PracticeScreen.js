@@ -4,7 +4,7 @@ import { View } from "react-native";
 import { Text } from "react-native-elements";
 
 import { setWordCardList } from "../actions/cards";
-import { setStats } from "../actions/user";
+import { setStats, setStreakDone } from "../actions/user";
 
 import { styles } from "../Styles";
 import { db } from "../firebase";
@@ -13,7 +13,16 @@ import { TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import WordCard from "../components/WordCard";
 
-const PracticeScreen = ({ navigation, dictionary, wordCardList, user, stats, setWordCardList, setStats }) => {
+const PracticeScreen = ({
+  navigation,
+  dictionary,
+  wordCardList,
+  user,
+  stats,
+  setWordCardList,
+  setStats,
+  setStreakDone,
+}) => {
   const [selectedWordCard, setSelectedWordCard] = useState(
     <View>
       <Text style={styles.defaultText}>loading...</Text>
@@ -70,6 +79,7 @@ const PracticeScreen = ({ navigation, dictionary, wordCardList, user, stats, set
         };
 
         setStats(newStats);
+        setStreakDone(true);
         db.collection("users").doc(user.uid).update({ stats: newStats });
         navigation.replace("PracticeDone");
       }
@@ -130,4 +140,4 @@ const mapStateToProps = (state) => ({
   stats: state.user.stats,
 });
 
-export default connect(mapStateToProps, { setWordCardList, setStats })(PracticeScreen);
+export default connect(mapStateToProps, { setWordCardList, setStats, setStreakDone })(PracticeScreen);

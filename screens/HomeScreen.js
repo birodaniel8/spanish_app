@@ -75,7 +75,7 @@ const HomeScreen = ({ navigation, user, settings, setUser, setSettings, loadDict
             <MaterialIcons name="logout" size={28} color="black" />
           </TouchableOpacity>
         </View>
-        <ScrollView contentContainerStyle={styles.pageContainer}>
+        <ScrollView contentContainerStyle={styles.homePageContainer}>
           <View style={styles.profilePictureContainer}>
             <Image source={logo} style={styles.flagBackground}></Image>
             {user?.photoURL && (
@@ -96,7 +96,7 @@ const HomeScreen = ({ navigation, user, settings, setUser, setSettings, loadDict
             title="Let's practice!"
           />
 
-          <View style={{ height: "45%", width: "90%" }}>
+          <View style={{ width: "90%", marginBottom: 10 }}>
             {wordOfTheDayList ? <Text style={styles.wordOfTheDayHeader}>Word of the day:</Text> : null}
             {wordOfTheDayList ? (
               <View style={styles.wordOfDayContainer}>

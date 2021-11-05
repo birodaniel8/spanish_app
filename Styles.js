@@ -1,6 +1,7 @@
 import { StatusBar, StyleSheet } from "react-native";
 
-const backgroundColor = "#FCFCFC";
+export const backgroundColor = "#FCFCFC";
+const headerColor = "#EEEEEE";
 const inputBorderColor = "#C0C0C0";
 const inputbackgroundColor = "#FFFFFF";
 const shadowColor = "#000000";
@@ -32,15 +33,20 @@ export const styles = StyleSheet.create({
   pageHeader: {
     paddingTop: StatusBar.currentHeight + 10,
     paddingHorizontal: 15,
-    marginBottom: 10,
+    paddingBottom: 10,
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
     flexDirection: "row",
+    backgroundColor: headerColor,
+  },
+
+  homePageContainer: {
+    alignItems: "center",
+    backgroundColor: backgroundColor,
   },
 
   settingsPageContainer: {
-    flex: 1,
     alignItems: "center",
     backgroundColor: backgroundColor,
   },
@@ -241,6 +247,7 @@ export const styles = StyleSheet.create({
 
   // Profile picture with background:
   profilePictureContainer: {
+    marginTop: 60,
     width: 240,
     height: 160,
     alignItems: "center",
@@ -284,6 +291,27 @@ export const styles = StyleSheet.create({
     paddingLeft: "15%",
     backgroundColor: "transparent",
     borderWidth: 0,
+  },
+
+  profileSettingsItem: {
+    flex: 1,
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "77%",
+    flexDirection: "row",
+    marginTop: 10,
+  },
+
+  profileSettingsInputField: {
+    marginBottom: -25,
+    marginLeft: 0,
+    paddingLeft: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: inputBorderColor,
+    backgroundColor: inputbackgroundColor,
+    ...shadowSettings,
+    // height: 40
   },
 
   // Practice:

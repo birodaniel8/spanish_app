@@ -16,11 +16,15 @@ import AppLoading from "expo-app-loading";
 import { useFonts } from "@expo-google-fonts/merienda";
 import { Merienda_700Bold } from "@expo-google-fonts/merienda";
 import { Montserrat_400Regular, Montserrat_400Regular_Italic, Montserrat_700Bold } from "@expo-google-fonts/montserrat";
+import { backgroundColor } from "./Styles";
 
 // Create a Stack Navigator and set the global screen settings:
 const Stack = createStackNavigator();
 const globalScreenOptions = {
   headerShown: false,
+  cardStyle: {
+    backgroundColor: backgroundColor,
+  },
 };
 
 export default function App() {

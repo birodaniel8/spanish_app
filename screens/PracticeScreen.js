@@ -4,13 +4,14 @@ import { View } from "react-native";
 import { Text } from "react-native-elements";
 
 import { setWordCardList } from "../actions/cards";
+import { setStats } from "../actions/user";
 
 import { styles } from "../Styles";
 import { db } from "../firebase";
+import firebase from "firebase/app";
 import { TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import WordCard from "../components/WordCard";
-import { setStats } from "../actions/user";
 
 const PracticeScreen = ({ navigation, dictionary, wordCardList, user, stats, setWordCardList, setStats }) => {
   const [selectedWordCard, setSelectedWordCard] = useState(
@@ -21,6 +22,12 @@ const PracticeScreen = ({ navigation, dictionary, wordCardList, user, stats, set
   const [count, setCount] = useState(0);
   const totalWords = 2;
   var progress = (count / (totalWords + 1)) * 100 + "%";
+
+  Date.prototype.addHours = function (h) {
+    this.setHours(this.getHours() + h);
+    this.setMinutes(this.getMinutes() + (h % 1) * 60);
+    return this;
+  };
 
   useEffect(() => {
     // sample random word cards and store them:
@@ -39,7 +46,29 @@ const PracticeScreen = ({ navigation, dictionary, wordCardList, user, stats, set
         setCount(totalWords - wordCardList.length + 1);
       } else {
         setWordCardList(null);
-        const newStats = { ...stats, practiceCount: stats.practiceCount + 1 };
+        // get current date:
+        var currentDateTime = new Date();
+        currentDateTime.addHours(-currentDateTime.getTimezoneOffset() / 60);
+
+        // determine the new streak count:
+        const oneDay = 24 * 60 * 60 * 1000;
+        if (stats.lastPracticeTime) {
+          var lastTime = stats.lastPracticeTime.toDate();
+          var lastPracticeDay = new Date(lastTime.getFullYear(), lastTime.getMonth(), lastTime.getDate());
+          lastPracticeDay.addHours(-lastPracticeDay.getTimezoneOffset() / 60);
+          var newStreakCount = currentDateTime - lastPracticeDay > oneDay ? stats.streakCount + 1 : stats.streakCount;
+        } else {
+          var newStreakCount = stats.streakCount + 1;
+        }
+
+        // upload and set new stats:
+        var firebastTimestamp = firebase.firestore.Timestamp.fromDate(currentDateTime);
+        const newStats = {
+          streakCount: newStreakCount,
+          practiceCount: stats.practiceCount + 1,
+          lastPracticeTime: firebastTimestamp,
+        };
+
         setStats(newStats);
         db.collection("users").doc(user.uid).update({ stats: newStats });
         navigation.replace("PracticeDone");

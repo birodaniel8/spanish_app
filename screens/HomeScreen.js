@@ -7,12 +7,14 @@ import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import { setUser, setSettings } from "../actions/user";
 import { loadDictionary } from "../actions/dictionary";
 
-import { styles } from "../Styles";
+import { styles, primaryColor } from "../Styles";
 import { auth } from "../firebase";
 import { wordOfTheDayExamples } from "../configurations/MoodAndTenseTypes";
 import WordOfTheDayIcons from "../configurations/WordOfTheDayIcons";
 import dictionaryJSON from "../assets/dictionary.json";
 import logo from "../assets/logo.png";
+
+import firebase from "firebase/app";
 
 // calculate day of the year:
 const dayOfYear = (date) => Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
@@ -64,6 +66,38 @@ const HomeScreen = ({ navigation, user, settings, stats, setUser, setSettings, l
     );
   }, []);
 
+  // Date.prototype.addHours = function (h) {
+  //   this.setHours(this.getHours() + h);
+  //   this.setMinutes(this.getMinutes() + (h % 1) * 60);
+  //   return this;
+  // };
+
+  // var date = new Date();
+  console.log("--------");
+  // console.log(date);
+  // // console.log(-date.getTimezoneOffset() / 60)
+  // console.log(date.addHours(-date.getTimezoneOffset() / 60));
+  // // console.log(date.addHours(1.5));
+  // // console.log(1.5 % 1);
+
+  // var currentDateTime = new Date();
+  // currentDateTime.addHours(-currentDateTime.getTimezoneOffset() / 60);
+  // var firebastTimestamp = firebase.firestore.Timestamp.fromDate(currentDateTime);
+  // console.log(firebastTimestamp);
+
+  // const d1 = stats.lastPracticeTime.toDate();
+  // const d2 = new Date();
+  // const d3 = new Date(d1.getFullYear(), d1.getMonth(), d1.getDate());
+  // d2.addHours(-d2.getTimezoneOffset() / 60);
+  // d3.addHours(-d3.getTimezoneOffset() / 60);
+
+  // console.log(d1);
+  // console.log(d2);
+  // console.log(d3);
+  // console.log(d2 - d3);
+  // console.log((d2 - d3) / (60 * 60 * 1000));
+  // console.log(2 * 24 * 60 * 60 * 1000);
+
   if (user?.displayName) {
     return (
       <View style={{ flex: 1 }}>
@@ -74,9 +108,9 @@ const HomeScreen = ({ navigation, user, settings, stats, setUser, setSettings, l
           <View>
             <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
               <TouchableOpacity>
-                <MaterialIcons name="local-fire-department" size={28} color="grey" />
+                <MaterialIcons name="local-fire-department" size={28} color={primaryColor} />
               </TouchableOpacity>
-              <Text style={{ paddingLeft: 3 }}>{stats.streakCount}</Text>
+              <Text style={{ ...styles.defaultBoldText, paddingLeft: 3 }}>{stats.streakCount}</Text>
             </View>
           </View>
           <TouchableOpacity onPress={signOutUser}>

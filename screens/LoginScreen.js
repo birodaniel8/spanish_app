@@ -3,13 +3,13 @@ import { connect } from "react-redux";
 import { View, Image } from "react-native";
 import { Text, Button, Input } from "react-native-elements";
 
-import { setUser, setSettings } from "../actions/user";
+import { setUser, setSettings, setStats } from "../actions/user";
 
 import { auth, db } from "../firebase";
 import { styles } from "../Styles";
 import logo from "../assets/logo.png";
 
-const LoginScreen = ({ navigation, setUser, setSettings }) => {
+const LoginScreen = ({ navigation, setUser, setSettings, setStats }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -17,15 +17,21 @@ const LoginScreen = ({ navigation, setUser, setSettings }) => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
+        navigation.replace("Loading")
         setUser(authUser);
         // load the settings:
         db.collection("users")
           .doc(authUser.uid)
           .get()
           .then((doc) => {
-            doc.exists && setSettings(doc.data().settings);
+            if (doc.exists) {
+              setSettings(doc.data().settings);
+              setStats(doc.data().stats);
+            }
+          })
+          .then(() => {
+            navigation.replace("Home");
           });
-        navigation.replace("Home");
       }
     });
 
@@ -83,4 +89,4 @@ const LoginScreen = ({ navigation, setUser, setSettings }) => {
   );
 };
 
-export default connect(null, { setUser, setSettings })(LoginScreen);
+export default connect(null, { setUser, setSettings, setStats })(LoginScreen);

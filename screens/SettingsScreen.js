@@ -13,7 +13,7 @@ import { auth, db, storage } from "../firebase";
 import { MoodAndTenseTypes } from "../configurations/MoodAndTenseTypes";
 import MoodSelector from "../components/MoodSelector";
 
-const SettingsScreen = ({ navigation, user, settings, setSettings, setUser }) => {
+const SettingsScreen = ({ navigation, user, settings, stats, setSettings, setUser }) => {
   const [newSettings, setNewSettings] = useState(settings);
   const [showNewNameField, setShowNewNameField] = useState(false);
   const [newName, setNewName] = useState(user.displayName);
@@ -28,12 +28,20 @@ const SettingsScreen = ({ navigation, user, settings, setSettings, setUser }) =>
       .map((mood) => Object.values(mood).some((tense) => tense === true))
       .some((mood) => mood === true);
     if (validSetting) {
-      db.collection("users").doc(user.uid).set({ settings: newSettings });
+      db.collection("users").doc(user.uid).update({ settings: newSettings });
       setSettings(newSettings);
     } else {
       Alert.alert("Error", "Select at least one mood or tense!");
     }
   };
+
+  // db.collection("users")
+  //   .get()
+  //   .then((querySnapshot) =>
+  //     querySnapshot.forEach((doc) =>
+  //       doc.ref.update({ stats: { streakCount: 0, lastPracticeTime: null, practiceCount: 0 } })
+  //     )
+  //   );
 
   // update user's displayName
   const updateName = async () => {
@@ -216,6 +224,9 @@ const SettingsScreen = ({ navigation, user, settings, setSettings, setUser }) =>
             </View>
           </View>
         )}
+        <View style={styles.profileSettingsItem}>
+          <Text style={styles.defaultBoldText}>Number of practices: {stats.practiceCount}</Text>
+        </View>
       </ScrollView>
     </View>
   );
@@ -224,6 +235,7 @@ const SettingsScreen = ({ navigation, user, settings, setSettings, setUser }) =>
 const mapStateToProps = (state) => ({
   user: state.user.user,
   settings: state.user.settings,
+  stats: state.user.stats,
 });
 
 export default connect(mapStateToProps, { setSettings, setUser })(SettingsScreen);

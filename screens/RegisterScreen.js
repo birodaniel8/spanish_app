@@ -4,14 +4,14 @@ import { View } from "react-native";
 import { Avatar, Button, Input, Text } from "react-native-elements";
 import * as ImagePicker from "expo-image-picker";
 
-import { setUser, setSettings } from "../actions/user";
+import { setUser, setSettings, setStats } from "../actions/user";
 
 import { styles } from "../Styles";
 import { auth, db, storage } from "../firebase";
 import { MoodAndTenseTypes } from "../configurations/MoodAndTenseTypes";
 import DefaultPhotoUrl from "../configurations/DefaultPhotoUrl";
 
-const RegisterScreen = ({ navigation, setUser, setSettings }) => {
+const RegisterScreen = ({ navigation, setUser, setSettings, setStats }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,8 +28,10 @@ const RegisterScreen = ({ navigation, setUser, setSettings }) => {
     settings["Indicative"]["Future"] = true;
     return settings;
   }, {});
+  const defaultStats = { streakCount: 0, lastPracticeTime: null, practiceCount: 0 };
 
   const register = () => {
+    navigation.replace("Loading")
     // Create a new user based on email and password and then add the selected name and photo:
     auth
       .createUserWithEmailAndPassword(email, password)
@@ -43,13 +45,17 @@ const RegisterScreen = ({ navigation, setUser, setSettings }) => {
         // add the base settings to the database:
         await db.collection("users").doc(authUser.user.uid).set({
           settings: defaultMoodSettings,
+          stats: defaultStats,
         });
         // add to states:
         setUser(authUser.user);
         setSettings(defaultMoodSettings);
-        // refresh the home page:
-        navigation.replace("Home");
+        setStats(defaultStats);
       })
+      .then(() =>
+        // refresh the home page:
+        navigation.replace("Home")
+      )
       .catch((error) => alert(error.message));
   };
 
@@ -142,4 +148,4 @@ const RegisterScreen = ({ navigation, setUser, setSettings }) => {
   );
 };
 
-export default connect(null, { setUser, setSettings })(RegisterScreen);
+export default connect(null, { setUser, setSettings, setStats })(RegisterScreen);

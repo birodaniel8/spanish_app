@@ -1,4 +1,4 @@
-import { SET_USER, SET_SETTINGS } from "../actions/types.js";
+import { SET_USER, SET_SETTINGS, SET_STATS } from "../actions/types.js";
 
 // Update user:
 export const setUser = (user) => (dispatch) => {
@@ -13,5 +13,13 @@ export const setSettings = (settings) => (dispatch) => {
   dispatch({
     type: SET_SETTINGS,
     payload: settings,
+  });
+};
+
+// Update stats:
+export const setStats = (stats) => (dispatch) => {
+  dispatch({
+    type: SET_STATS,
+    payload: stats,
   });
 };

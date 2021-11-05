@@ -1,8 +1,9 @@
-import { SET_USER, SET_SETTINGS } from "../actions/types.js";
+import { SET_USER, SET_SETTINGS, SET_STATS } from "../actions/types.js";
 
 const initialState = {
   user: null,
   settings: null,
+  stats: null,
 };
 
 export default function (state = initialState, action) {
@@ -16,6 +17,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         settings: action.payload,
+      };
+    case SET_STATS:
+      return {
+        ...state,
+        stats: action.payload,
       };
     default:
       return state;

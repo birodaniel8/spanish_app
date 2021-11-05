@@ -6,18 +6,20 @@ import { Text } from "react-native-elements";
 import { setWordCardList } from "../actions/cards";
 
 import { styles } from "../Styles";
+import { db } from "../firebase";
 import { TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import WordCard from "../components/WordCard";
+import { setStats } from "../actions/user";
 
-const PracticeScreen = ({ navigation, dictionary, wordCardList, setWordCardList }) => {
+const PracticeScreen = ({ navigation, dictionary, wordCardList, user, stats, setWordCardList, setStats }) => {
   const [selectedWordCard, setSelectedWordCard] = useState(
     <View>
       <Text style={styles.defaultText}>loading...</Text>
     </View>
   );
   const [count, setCount] = useState(0);
-  const totalWords = 10;
+  const totalWords = 2;
   var progress = (count / (totalWords + 1)) * 100 + "%";
 
   useEffect(() => {
@@ -37,6 +39,9 @@ const PracticeScreen = ({ navigation, dictionary, wordCardList, setWordCardList 
         setCount(totalWords - wordCardList.length + 1);
       } else {
         setWordCardList(null);
+        const newStats = { ...stats, practiceCount: stats.practiceCount + 1 };
+        setStats(newStats);
+        db.collection("users").doc(user.uid).update({ stats: newStats });
         navigation.replace("PracticeDone");
       }
     }
@@ -92,6 +97,8 @@ const PracticeScreen = ({ navigation, dictionary, wordCardList, setWordCardList 
 const mapStateToProps = (state) => ({
   dictionary: state.dictionary.dictionary,
   wordCardList: state.cards.wordCardList,
+  user: state.user.user,
+  stats: state.user.stats,
 });
 
-export default connect(mapStateToProps, { setWordCardList })(PracticeScreen);
+export default connect(mapStateToProps, { setWordCardList, setStats })(PracticeScreen);

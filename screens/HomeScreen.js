@@ -17,7 +17,7 @@ import logo from "../assets/logo.png";
 // calculate day of the year:
 const dayOfYear = (date) => Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
 
-const HomeScreen = ({ navigation, user, settings, setUser, setSettings, loadDictionary }) => {
+const HomeScreen = ({ navigation, user, settings, stats, setUser, setSettings, loadDictionary }) => {
   const [wordOfTheDayList, setWordOfTheDayList] = useState();
   // word of the day is tied to the given day of the year (different every day in a cycle):
   var wordOfTheDay = Object.keys(WordOfTheDayIcons)[dayOfYear(new Date()) % Object.keys(WordOfTheDayIcons).length];
@@ -71,6 +71,14 @@ const HomeScreen = ({ navigation, user, settings, setUser, setSettings, loadDict
           <TouchableOpacity onPress={() => navigation.replace("Settings")}>
             <AntDesign name="setting" size={28} color="black" />
           </TouchableOpacity>
+          <View>
+            <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
+              <TouchableOpacity>
+                <MaterialIcons name="local-fire-department" size={28} color="grey" />
+              </TouchableOpacity>
+              <Text style={{ paddingLeft: 3 }}>{stats.streakCount}</Text>
+            </View>
+          </View>
           <TouchableOpacity onPress={signOutUser}>
             <MaterialIcons name="logout" size={28} color="black" />
           </TouchableOpacity>
@@ -128,6 +136,7 @@ const HomeScreen = ({ navigation, user, settings, setUser, setSettings, loadDict
 const mapStateToProps = (state) => ({
   user: state.user.user,
   settings: state.user.settings,
+  stats: state.user.stats,
 });
 
 export default connect(mapStateToProps, { setUser, setSettings, loadDictionary })(HomeScreen);

@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { ScrollView, TouchableOpacity, View, Alert } from "react-native";
-import { Text, Input } from "react-native-elements";
+import { Text, Input, Avatar } from "react-native-elements";
 import { FontAwesome5, Ionicons, AntDesign, MaterialIcons } from "@expo/vector-icons";
+import * as ImagePicker from "expo-image-picker";
 
 import { setSettings, setUser } from "../actions/user";
 
 import { styles, primaryColor } from "../Styles";
 import firebase from "firebase/app";
-import { auth, db } from "../firebase";
+import { auth, db, storage } from "../firebase";
 import { MoodAndTenseTypes } from "../configurations/MoodAndTenseTypes";
 import MoodSelector from "../components/MoodSelector";
 
@@ -19,6 +20,7 @@ const SettingsScreen = ({ navigation, user, settings, setSettings, setUser }) =>
   const [showNewPasswordField, setShowNewPasswordField] = useState(false);
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [image, setImage] = useState(null);
 
   const saveSettings = () => {
     // check if any of the boxes are selected
@@ -66,6 +68,52 @@ const SettingsScreen = ({ navigation, user, settings, setSettings, setUser }) =>
       }
     } else {
       Alert.alert("Error", `Password should be at least 6 characters!`);
+    }
+  };
+
+  // Image picker:
+  const pickImage = async () => {
+    // handle permissions:
+    if (Platform.OS !== "web") {
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== "granted") {
+        alert("Sorry, we need camera roll permissions to make this work!");
+      }
+    }
+
+    // select image:
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: "Images",
+      allowsEditing: false,
+      aspect: [3, 3],
+      quality: 0.5,
+    });
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+
+  // Upload the photo:
+  const uploadImage = async () => {
+    if (image) {
+      try {
+        const imageName = image.substring(image.lastIndexOf("/") + 1);
+        const response = await fetch(image);
+        const blob = await response.blob();
+        const storageRef = storage.ref(auth.currentUser.uid + "/profilePicture/" + imageName);
+        await storageRef.put(blob);
+        // then add to user's profile:
+        await storageRef.getDownloadURL().then(async (url) => {
+          await auth.currentUser.updateProfile({
+            photoURL: url,
+          });
+        });
+        Alert.alert("Done", `Your profile picture has been updated`);
+        setImage(null);
+      } catch (err) {
+        Alert.alert("Error", `Something went wrong. The upload is not successful.`);
+      }
     }
   };
 
@@ -119,10 +167,19 @@ const SettingsScreen = ({ navigation, user, settings, setSettings, setUser }) =>
 
         <View style={styles.profileSettingsItem}>
           <Text style={styles.defaultBoldText}>Select new profile picture</Text>
-          <TouchableOpacity onPress={() => Alert.alert("OK")}>
+          <TouchableOpacity onPress={pickImage}>
             <MaterialIcons name="add-photo-alternate" size={24} color="black" />
           </TouchableOpacity>
         </View>
+        {image && (
+          <View style={styles.profileSettingsItemOpened}>
+            <Avatar source={{ uri: image }} size="small" rounded />
+            <Text style={{ paddingLeft: 10, paddingRight: 10 }}>New profile picture selected</Text>
+            <TouchableOpacity onPress={uploadImage}>
+              <Ionicons name="send" size={24} color={primaryColor} />
+            </TouchableOpacity>
+          </View>
+        )}
 
         <View style={styles.profileSettingsItem}>
           <Text style={styles.defaultBoldText}>Change password</Text>

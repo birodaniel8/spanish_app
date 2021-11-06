@@ -31,7 +31,7 @@ const RegisterScreen = ({ navigation, setUser, setSettings, setStats }) => {
   const defaultStats = { streakCount: 0, lastPracticeTime: null, practiceCount: 0 };
 
   const register = () => {
-    navigation.replace("Loading")
+    navigation.replace("Loading");
     // Create a new user based on email and password and then add the selected name and photo:
     auth
       .createUserWithEmailAndPassword(email, password)
@@ -112,7 +112,7 @@ const RegisterScreen = ({ navigation, setUser, setSettings, setStats }) => {
         Pick a profile picture
       </Text>
       <View style={styles.inputContainer}>
-        <Text style={styles.inputFieldLabel}>Name</Text>
+        <Text style={styles.inputFieldLabel}>Nickname</Text>
         <Input
           autoFocus
           type="text"

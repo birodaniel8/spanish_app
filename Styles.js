@@ -149,6 +149,8 @@ export const styles = StyleSheet.create({
   transparentButtonContainer: {
     width: "50%",
     borderRadius: 5,
+    height: 30,
+    justifyContent: "center",
   },
 
   transparentButton: {
@@ -158,6 +160,11 @@ export const styles = StyleSheet.create({
   transparentButtonText: {
     color: "black",
     fontFamily: defaultBoldFont,
+  },
+
+  transparentButtonTextNormal: {
+    color: "black",
+    fontFamily: defaultFont,
   },
 
   // Text types:

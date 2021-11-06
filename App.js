@@ -12,6 +12,7 @@ import PracticeScreen from "./screens/PracticeScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import PracticeDoneScreen from "./screens/PracticeDoneScreen";
 import LoadingScreen from "./screens/LoadingScreen";
+import PasswordReset from "./screens/PasswordReset";
 
 import AppLoading from "expo-app-loading";
 import { useFonts } from "@expo-google-fonts/merienda";
@@ -45,6 +46,7 @@ export default function App() {
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Loading" component={LoadingScreen} />
             <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen name="PasswordReset" component={PasswordReset} />
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Settings" component={SettingsScreen} />
             <Stack.Screen name="Practice" component={PracticeScreen} />

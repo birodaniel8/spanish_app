@@ -103,6 +103,14 @@ const LoginScreen = ({ navigation, setUser, setSettings, setStats, setStreakDone
       <Button
         containerStyle={styles.transparentButtonContainer}
         buttonStyle={styles.transparentButton}
+        titleStyle={styles.transparentButtonTextNormal}
+        title="I forgot my password"
+        onPress={() => navigation.navigate("PasswordReset")}
+        // onPress={() => auth.sendPasswordResetEmail(email)}
+      />
+      <Button
+        containerStyle={styles.transparentButtonContainer}
+        buttonStyle={styles.transparentButton}
         titleStyle={styles.transparentButtonText}
         title="Register"
         onPress={() => navigation.navigate("Register")}
